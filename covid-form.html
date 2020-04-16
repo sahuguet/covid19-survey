@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+
+    <style>
+        .debug-off {
+            border: 1px solid green;
+        }
+
+        .question {
+            border-radius: 10px;
+            background-color: beige;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container debug">
+        <h1>COVID-19 Community Survey</h1>
+
+        <div class="row d-flex justify-content-center debug">
+
+            <!--Grid column-->
+            <div class="col-md-10 debug">
+                <p>DISCLAIMER FOR VOLUNTEER CALLERS USING THIS FORM: This survey contains information about an
+                    individual’s medical condition, food insecurity, and support structures to help mobilize resources
+                    efficiently in response to Corona Virus. You are not permitted to share or discuss any information
+                    collected in the survey outside the individual being surveyed - by participating, you agree to this.
+                    Responses to the survey will be utilized only by the support team leaders to make referrals for
+                    medical, food, and social work follow up. Referrals will only contain contact information and
+                    information relating to the relevant service, and will remain otherwise anonymized.</p>
+
+                <p>Resources for volunteers and community members to stay up-to-date with this local effort and local
+                    recommendations:
+                    <ul>
+                        <li>https://c19check.com/start (GREAT if person wants to understand their risk)</li>
+                        <li>http://redhookhub.org/coronavirus/</li>
+                        <li>https://www1.nyc.gov/site/doh/covid/covid-19-main.page</li>
+                        <li>Phone number for NYC mental health/counseling support: +1 (844) 863-9314</li>
+                        <li>Councilman Menchaca District Office: +1 (718) 439-9012/li>
+                    </ul>
+
+                    Spanish translations are below each question. If you do not feel comfortable conversing in Spanish
+                    please let us know.
+                </p>
+            </div>
+        </div>
+
+        <script id="text-field-template" type="text/x-handlebars-template">
+            <div class="row d-flex justify-content-center debug">
+                <div class="col-md-8 debug question">
+                    <div class="form-group">
+                        <label for="{{label_for}}">{{label_value}}</label>
+                        <input type="text" class="form-control" name="{{name}}" id="{{id}}"
+                            placeholder="{{placeholder}}">
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="radio-field-template" type="text/x-handlebars-template">
+        <div class="row d-flex justify-content-center debug">
+            <div class="col-md-8 debug question">
+                <div class="form-group">
+                    <label for="{{label_for}}">{{{label_value}}}</label>
+                    {{#each choices}}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{../name}}" {{#if @first}} checked {{/if}} id="{{id}}_{{this}}"
+                            value="{{this.value}}">
+                        <label class="form-check-label">{{this.label}}</label>
+                    </div>
+                    {{/each  }}
+                </div>
+            </div>
+        </div>
+        </script>
+
+        <script id="check-field-template" type="text/x-handlebars-template">
+            <div class="row d-flex justify-content-center debug">
+                <div class="col-md-8 debug question">
+                    <div class="form-group">
+                        <label for="{{label_for}}">{{{label_value}}}</label>
+                        <input class="form-check-input" type="checkbox" name="{{name}}" id="{{id}}_default" value="" checked style="display:none;">
+                        {{#each choices}}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="{{../name}}" id="{{id}}_{{this}}"
+                                value="{{this.value}}">
+                            <label class="form-check-label">{{this.label}}</label>
+                        </div>
+                        {{/each  }}
+                    </div>
+                </div>
+            </div>
+            </script>
+
+
+        <script>
+
+        </script>
+
+        <form id="survey_form" onsubmit='onSubmit(this); return false;'>
+
+            <div id='survey_questions'></div>
+
+
+            <input type="hidden" name="survey_check" id="survey_check" value="Done">
+
+            <div class="row d-flex justify-content-center debug">
+                <hr />
+            </div>
+
+            <div class="row d-flex justify-content-center debug">
+                <div class="col-md-8 debug text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+
+        </form>
+
+        <!--Grid column-->
+
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="gettext.iife.js"></script>
+
+    <script>
+        function onSubmit(form) {
+            var data = JSON.stringify($(form).serializeArray()); //  <-----------
+            console.log(data);
+
+            try {
+                $.ajax({
+                    url: "https://us-central1-cornell-tech-sso.cloudfunctions.net/function-1",
+                    type: "POST",
+                    data: data,
+                    contentType: "application/json",
+                    complete: function () { console.log('Complete'); }
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+            return false; //don't submit
+        };
+
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ''); // trim
+            str = str.toLowerCase();
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáãäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaaeeeeiiiioooouuuunc------";
+
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+            return str;
+        }
+
+
+
+        var i18n = window.i18n({});
+
+        function _c(str) {
+            return { 'value': string_to_slug(str), 'label': i18n.gettext(str) };
+        }
+
+        TRANSLATIONS =
+            [
+                {
+                    'default': 'Yes',
+                    'fr': 'Oui',
+                    'es': 'Si',
+                },
+                {
+                    'default': 'No',
+                    'fr': 'Non',
+                    'es': 'No'
+                },
+                {
+                    'default': 'Reached by phone successfully',
+                    'fr': 'Joint par téléphone avec succès',
+                    'es': 'Alcanzado exitosamente por teléfono'
+                },
+                {
+                    'default': 'What are the ages of you and everyone in your household? (Check the box of each age range that applies, the total number of members in the household is not relevant)',
+                    'fr': '',
+                    'es': '¿Cuál es su edad y la edad de los miembros de su hogar?'
+                },
+                {
+                    'default': 'We\'re collecting information about your needs, such as health conditions, in order to connect you with resources. Do we have consent from you to record this information for our support team to get you resources? Your responses will only be kept within our support team.',
+                    'fr': "Nous collectons des informations sur vos besoins, tels que les conditions de santé, afin de vous connecter avec des ressources. Avons-nous votre consentement pour enregistrer ces informations afin que notre équipe d'assistance vous obtienne des ressources? Vos réponses ne seront conservées qu'au sein de notre équipe d'assistance.",
+                    'es': 'Estamos recompilando informaciones sobre sus necesidades, como sus problemas de salud, para conectarlo con recursos. ¿Tenemos su consentimiento para registrar esta información para que nuestro equipo de apoyo le pueda obtener recursos? Sus respuestas identificadas solo se mantendrán dentro de nuestro equipo de apoyo, y usted acepta que no somos responsables por los resultados relacionados con esta encuesta. Haremos todo lo posible para darle información y recursos actualizados.'
+                },
+                {
+                    'default': 'Right now, are you or any members of your household experiencing symptoms consistent with Corona Virus infection? READ LIST BELOW. IF ANSWER = DIFFICULTY BREATHING or CHEST PAIN, RESPONSE = "CALL YOUR DOCTOR FIRST IF YOU HAVE ONE. IF YOU DO NOT HAVE A DOCTOR, CAN CALL: 1-844-NYC-4NYC (1-844-692-4692). IF THIS IS AN EMERGENCY, CALL 911."',
+                    'fr': 'À l\'heure actuelle, est-ce que vous ou un membre de votre ménage ressentez des symptômes compatibles avec une infection par le virus Corona? LISEZ LA LISTE CI-DESSOUS. SI RÉPONSE = DIFFICULTÉ RESPIRATION OU DOULEUR DE POITRINE, RÉPONSE = "APPELEZ VOTRE MÉDECIN D\'ABORD SI VOUS EN AVEZ UN. C\'EST UNE URGENCE, APPELEZ LE 911. "',
+                    'es': 'En este momento, ¿usted o algún miembro de su hogar apresenta síntomas consistentes con la infección por Coronavirus? SI RESPUESTA DIFFICULTAD AL RESPIRAR o DOLOR DE PECHO, RESPONDA "LLAME A SU DOCTOR PRIMERO SI USTED TIENE UNO." SI NO TIENE UN DOCTOR, PUEDE LLAMAR: 1-844-NYC-4NYC (1-844-692-4692). SI ES UNA EMERGENCIA, LLAME AL 911."'
+                },
+                {
+                    'default': 'Fever',
+                    'fr': 'Fièvre',
+                    'es': 'Fiebre'
+                }
+
+            ];
+
+        LANGUAGES = ['fr', 'es'];
+
+        LANGUAGES.forEach(language => {
+            var data = {};
+            TRANSLATIONS.forEach(item => {
+                if (language in item) {
+                    data[item['default']] = item[language];
+                }
+            });
+            //console.log(data);
+            i18n.setMessages('messages', language, data, 'nplurals=2; plural=n>1;');
+        });
+
+        const getQueryParams = (params, url, default_value) => {
+            let href = url;
+            //this expression is to get the query strings
+            let reg = new RegExp('[?&]' + params + '=([^&#]*)', 'i');
+            let queryString = reg.exec(href);
+            return queryString ? queryString[1] : default_value;
+        }; // source: https://dev.to/ganeshmani/how-to-get-query-string-parameters-in-javascript-2019-4dm2 .
+
+        // We extract the language; 'en' is the default one.
+        var lang = getQueryParams('lang', window.location, 'en');
+
+        i18n.setLocale(lang); // We set language for the UI.
+
+        QUESTIONS = [
+            {
+                'type': 'text',
+                'label_for': 'name',
+                'label_value': 'Name',
+                'name': 'name',
+                'id': 'name',
+                'placeholder': 'Enter your name'
+            },
+            {
+                'type': 'text',
+                'label_for': 'phone',
+                'label_value': 'Phone',
+                'name': 'phone',
+                'id': 'phone',
+                'placeholder': 'Enter your phone'
+            },
+            {
+                'type': 'radio',
+                'choices': $.map(['Yes', 'No'], _c),
+                'label_for': 'reached_by_phone',
+                'label_value': i18n.gettext('Reached by phone successfully'),
+                'name': 'reached_by_phone',
+                'id': 'reached_by_phone'
+            },
+            {
+                'type': 'radio',
+                'choices': $.map(['English', 'Spanish'], _c),
+                'label_for': 'reached_by_phone',
+                'label_value': 'Survey conducted in',
+                'name': 'survey_conducted_in',
+                'id': 'survey_conducted_in'
+            },
+            {
+                'type': 'check',
+                'choices': $.map(['Under 1 year old', '1 - 5 years old', '6 - 11 years old', '12 - 24 years old', '25 - 35 years old', '36 - 50 years old', '51 - 65 years old', 'older than 65'], _c),
+                'label_for': 'age',
+                'label_value': i18n.gettext('What are the ages of you and everyone in your household? (Check the box of each age range that applies, the total number of members in the household is not relevant)'),
+                'name': 'age',
+                'id': 'age'
+            },
+            {
+                'type': 'radio',
+                'choices': $.map(['Yes', 'No'], _c),
+                'label_for': 'consent',
+                'label_value': i18n.gettext('We\'re collecting information about your needs, such as health conditions, in order to connect you with resources. Do we have consent from you to record this information for our support team to get you resources? Your responses will only be kept within our support team.'),
+                'name': 'consent',
+                'id': 'consent'
+            },
+            {
+                'type': 'check',
+                'choices': $.map(['Fever', 'Chills', 'Cough', 'Difficulty breathing', 'Chest Pain', 'Fatique', 'Diarrhea', 'Not experiencing any symptoms'], _c),
+                'label_for': 'symptoms',
+                'label_value': i18n.gettext('Right now, are you or any members of your household experiencing symptoms consistent with Corona Virus infection? READ LIST BELOW. IF ANSWER = DIFFICULTY BREATHING or CHEST PAIN, RESPONSE = "CALL YOUR DOCTOR FIRST IF YOU HAVE ONE. IF YOU DO NOT HAVE A DOCTOR, CAN CALL: 1-844-NYC-4NYC (1-844-692-4692). IF THIS IS AN EMERGENCY, CALL 911."'),
+                'name': 'symptoms',
+                'id': 'consent'
+            }
+        ];
+
+
+        $(document).ready(function () {
+            $.each(QUESTIONS, function (index, value) {
+                var template = null;
+                if (value['type'] == 'text') {
+                    template = $('#text-field-template').html();
+                } else if (value['type'] == 'radio') {
+                    template = $('#radio-field-template').html();
+                } else if (value['type'] == 'check') {
+                    template = $('#check-field-template').html();
+                }
+
+                var templateScript = Handlebars.compile(template);
+                var context = value;
+                var html = templateScript(context);
+                $('#survey_questions').append(html);
+
+                $('#survey_questions').append('<div class="row d-flex justify-content-center debug"><hr/></div>');
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
