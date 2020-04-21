@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>COVID-19 Community Survey</title>
 
     <style>
         .debug-off {
@@ -111,10 +111,30 @@
             </div>
             </script>
 
+        <script id="language-selector-template" type="text/x-handlebars-template">
+            <center>
+            <ul style="list-style: none;">
+            {{#each languages}}
+            <li style="display: inline; font-size: 32px; padding: 10px;"><a onclick="select_language('{{this.lang}}');">{{this.flag}}</a></li>
+            {{/each  }}
+            </ul>
+        </center>
+        </script>
+
+
+        <hr />
 
         <script>
-
+            function select_language(language_code) {
+                var url = window.location.href.split('?')[0];
+                window.location.href = url + '?lang=' + language_code;
+            }
         </script>
+
+        <div id="language-selector"></div>
+
+
+        <hr />
 
         <form id="survey_form" onsubmit='onSubmit(this); return false;'>
 
@@ -129,7 +149,7 @@
 
             <div class="row d-flex justify-content-center debug">
                 <div class="col-md-8 debug text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submit-button" type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
 
@@ -198,6 +218,10 @@
             return { 'value': string_to_slug(str), 'label': i18n.gettext(str) };
         }
 
+        function _c_age(str) {
+            return { 'value': string_to_slug(str), 'label': str + ' ' + i18n.gettext('years old') };
+        }
+
         TRANSLATIONS =
             [
                 {
@@ -208,6 +232,7 @@
                     'ru': "имя",
                     'ko': "성명"
                 },
+
                 {
                     'default': 'Phone',
                     'fr': 'Téléphone',
@@ -216,6 +241,7 @@
                     'ru': "омер телефона",
                     'ko': "전화번호"
                 },
+
                 {
                     'default': 'Enter your name',
                     'fr': 'Entrez votre nom',
@@ -300,7 +326,7 @@
                     'default': "What are the ages of you and everyone in your household? (Check the box of each age range that applies, the total number of members in the household is not relevant)",
                     'fr': "Quel âge avez-vous et tous les membres de votre ménage? (Cochez la case de chaque tranche d'âge qui s'applique, le nombre total de membres dans le ménage n'est pas pertinent)",
                     'es': "¿Cuáles son las edades de usted y de todos en su hogar? (Marque la casilla de cada rango de edad que aplique, el número total de miembros en el hogar no es relevante)",
-                    'ch': "",
+                    'ch': "您和家庭中每个人的年龄是多少？ （选中适用的每个年龄段的框，家庭成员总数不相关",
                     'ru': "Каков Ваш возраст и возраст проживающих с Вами членов семьи?",
                     'ko': "본인을 포함한 가족 구성원 모두의 나이가 무엇입니까? (가족 인원 수와 상관 없이 해당 되는 연령대를 전부 선택하십시오.)"
                 },
@@ -308,7 +334,7 @@
                     'default': "Under",
                     'fr': "Sous",
                     'es': "Debajo",
-                    'ch': "",
+                    'ch': "下",
                     'ru': "Под",
                     'ko': "아래에"
                 },
@@ -316,23 +342,23 @@
                     'default': "Year old",
                     'fr': "Age",
                     'es': "Edad",
-                    'ch': "",
+                    'ch': "岁",
                     'ru': "Годовалый",
                     'ko': "살"
                 },
                 {
-                    'default': "Year olds",
+                    'default': "years old",
                     'fr': "Ans",
                     'es': "Años de edad",
-                    'ch': "",
+                    'ch': "岁",
                     'ru': "Лет",
                     'ko': "살이에요"
                 },
                 {//Q7
-                    'default': "Right now, are you or any members of your household experiencing symptoms consistent with Corona Virus infection? READ LIST BELOW.  IF ANSWER = DIFFICULTY BREATHING or CHEST PAIN, RESPONSE = 'CALL YOUR DOCTOR FIRST IF YOU HAVE ONE. IF YOU DO NOT HAVE A DOCTOR, CAN CALL: 1-844-NYC-4NYC (1-844-692-4692). IF THIS IS AN EMERGENCY, CALL 911.",
+                    'default': "Right now, are you or any members of your household experiencing symptoms consistent with Corona Virus infection? READ LIST BELOW.  IF ANSWER = DIFFICULTY BREATHING or CHEST PAIN, RESPONSE = 'CALL YOUR DOCTOR FIRST IF YOU HAVE ONE. IF YOU DO NOT HAVE A DOCTOR, CAN CALL: 1-844-NYC-4NYC (1-844-692-4692). IF THIS IS AN EMERGENCY, CALL 911.'",
                     'fr': "À l'heure actuelle, est-ce que vous ou un membre de votre ménage ressentez des symptômes compatibles avec une infection par le virus Corona? LISEZ LA LISTE CI-DESSOUS. SI RÉPONSE = DIFFICULTÉ RESPIRATION OU DOULEUR DE POITRINE, RÉPONSE = 'APPELEZ VOTRE MÉDECIN D'ABORD SI VOUS EN AVEZ UN. SI VOUS N'AVEZ PAS DE MÉDECIN, VOUS POUVEZ APPELER: 1-844-NYC-4NYC (1-844-692-4692). EN CAS D'URGENCE, COMPOSER LE 911.",
                     'es': "En este momento, ¿usted o algún miembro de su hogar experimenta síntomas consistentes con la infección por el virus Corona? LEA LA LISTA A CONTINUACIÓN. SI RESPUESTA = DIFICULTAD RESPIRACIÓN O DOLOR EN EL PECHO, RESPUESTA = 'LLAME A SU MÉDICO PRIMERO SI TIENE UNO. SI NO TIENE UN MÉDICO, PUEDE LLAMAR AL: 1-844-NYC-4NYC (1-844-692-4692). SI ESTO ES UNA EMERGENCIA, LLAME AL 911.",
-                    'ch': "",
+                    'ch': "现在，您或您的家庭成员是否出现与冠状病毒感染一致的症状？阅读下面的列表。如果回答=呼吸困难或胸痛，响应='如果您有一个，请首先致电您的医生。如果没有医生，可以拨打：1-844-NYC-4NYC（1-844-692-4692）。如果是紧急情况，请致电911。”",
                     'ru': "Имеете ли Вы или проживающие с Вами члены семьи следующие симптомы, соответствующие коронавирусной инфекции? Зачитайте список ниже. Если среди отмеченных вариантов есть «Затрудненное дыхание» или «Боль в груди», Ваш ответ «ЕСЛИ У ВАС ЕСТЬ СВОЙ ВРАЧ, ПОЗВОНИТЕ ЕМУ. ЕСЛИ У ВАС НЕТ ВРАЧА, ПОЗВОНИТЕ ПО НОМЕРУ 1-844-NYC-4NYC (1-844-692-4692). В ЭКСТРЕННОМ СЛУЧАЕ НАБЕРИТЕ 911». Отметьте все подходящие варианты",
                     'ko': "현재 본인을 포함한 가족 구성원 중 코로나바이러스감염증-19 관련 증상을 겪고 있는 사람이 있습니까? 아래 항목을 읽어주십시오. 만약 호흡곤란 혹은 가슴통증을 답변으로 골랐다면 주치의에게 연락하십시오. 주치의가 없다면 1-844-692-4692로 전화하십시오. 응급 시엔 911에 전화하십시오."
                 },
@@ -340,7 +366,7 @@
                     'default': 'Fever',
                     'fr': 'Fièvre',
                     'es': 'Fiebre',
-                    'ch': "",
+                    'ch': "发热",
                     'ru': "Температура",
                     'ko': "발열"
                 },
@@ -348,7 +374,7 @@
                     'default': "Chills",
                     'fr': "Frissons",
                     'es': "Resfriado",
-                    'ch': "",
+                    'ch': "寒意",
                     'ru': "Озноб",
                     'ko': "오한"
                 },
@@ -356,7 +382,7 @@
                     'default': "Cough",
                     'fr': "La toux",
                     'es': "Tos",
-                    'ch': "",
+                    'ch': "咳嗽",
                     'ru': "Кашель",
                     'ko': "기침"
                 },
@@ -364,7 +390,7 @@
                     'default': "Difficulty breathing",
                     'fr': "Difficulté à respirer",
                     'es': "Respiración dificultosa",
-                    'ch': "",
+                    'ch': "呼吸困难",
                     'ru': "Затрудненное дыхание",
                     'ko': "호흡곤란"
                 },
@@ -372,7 +398,7 @@
                     'default': "Chest pain",
                     'fr': "Douleur de poitrine",
                     'es': "Dolor de pecho",
-                    'ch': "",
+                    'ch': "胸痛",
                     'ru': "Грудная боль",
                     'ko': "가슴통증"
                 },
@@ -380,15 +406,15 @@
                     'default': "Fatigue",
                     'fr': "Fatigue",
                     'es': "Fatiga",
-                    'ch': "",
+                    'ch': "疲劳",
                     'ru': "Усталость",
                     'ko': "피로"
                 },
                 {
                     'default': "Diarrhea",
-                    'fr': "Diarrea",
-                    'es': "La diarrhée",
-                    'ch': "",
+                    'fr': "Diarrhée",
+                    'es': "Diarrea",
+                    'ch': "腹泻",
                     'ru': "понос",
                     'ko': "설사"
                 },
@@ -396,7 +422,7 @@
                     'default': "Not experiencing any symptoms",
                     'fr': "Ne ressentant aucun symptôme",
                     'es': "No experimenta ningún síntoma",
-                    'ch': "",
+                    'ch': "没有任何症状",
                     'ru': "Не испытывает никаких симптомов",
                     'ko': "의심 증상 없음"
                 },
@@ -404,7 +430,7 @@
                     'default': "Do you or any member of your household suffer from any of the following? [If ANY one of these, please indicate 'Yes'] READ LIST: High blood pressure, diabetes, heart disease or prior heart attack, lung disease (like asthma, COPD, emphysema, bronchitis), kidney disease or require dialysis, compromised immune system (eg. taking steroids or immunosuppressants, sickle cell disease, cancer, HIV/AIDS), psychiatric illness.",
                     'fr': "Est-ce que vous ou un membre de votre ménage souffrez de l'un des symptômes suivants? [Si n'importe lequel d'entre eux, veuillez indiquer «Oui»] LIRE LA LISTE: Hypertension artérielle, diabète, maladie cardiaque ou crise cardiaque antérieure, maladie pulmonaire (comme l'asthme, la MPOC, l'emphysème, la bronchite), maladie rénale ou nécessiter une dialyse, immunodéprimé compromis système (p. ex. prise de stéroïdes ou d'immunosuppresseurs, drépanocytose, cancer, VIH / sida), maladie psychiatrique.",
                     'es': "¿Usted o algún miembro de su hogar sufre alguno de los siguientes síntomas? [Si ALGUNO de estos, indique 'Sí'] LISTA DE LECTURA: presión arterial alta, diabetes, enfermedad cardíaca o ataque cardíaco previo, enfermedad pulmonar (como asma, EPOC, enfisema, bronquitis), enfermedad renal o requiere diálisis, inmunidad comprometida sistema (p. ej., tomar esteroides o inmunosupresores, anemia falciforme, cáncer, VIH / SIDA), enfermedad psiquiátrica.",
-                    'ch': "",
+                    'ch': "您或您的家庭成员是否患有以下任何疾病？ [如果有任何一种，请注明'是'。]阅读清单：高血压，糖尿病，心脏病或先前心脏病发作，肺部疾病（如哮喘，COPD，肺气肿，支气管炎），肾脏疾病或需要透析，免疫功能低下系统（例如服用类固醇或免疫抑制剂，镰状细胞病，癌症，艾滋病毒/艾滋病），精神病。",
                     'ru': "Страдаете ли вы или кто-либо из членов вашей семьи каким-либо из следующих факторов? [Если ЛЮБОЙ из них, пожалуйста, укажите «Да»] ПРОЧИТАЙТЕ СПИСОК: Высокое кровяное давление, диабет, сердечные заболевания или перенесенные инфаркты, заболевания легких (например, астма, ХОБЛ, эмфизема, бронхит), заболевания почек или требуется диализ, нарушение иммунитета система (например, прием стероидов или иммунодепрессантов, серповидно-клеточная анемия, рак, ВИЧ / СПИД), психиатрические заболевания.",
                     'ko': "귀하 또는 귀하의 가구 구성원이 다음 중 하나를 앓고 있습니까? [이들 중 하나라도 있으면 '예'를 표시하십시오.] 읽기 목록 : 고혈압, 당뇨병, 심장병 또는 이전 심장 마비, 폐 질환 (예 : 천식, COPD, 폐기종, 기관지염), 신장 질환 또는 투석이 필요한 면역 시스템 (예 : 스테로이드 또는 면역 억제제, 겸상 적혈구 질환, 암, HIV / AIDS), 정신 질환."
                 },
@@ -412,7 +438,7 @@
                     'default': "Do you have a primary care physician? This is the first person you should contact with your health concerns; unless it is an emergency, then dial 911.",
                     'fr': "Avez-vous un médecin de premier recours? Il s'agit de la première personne à contacter pour vos problèmes de santé; sauf en cas d'urgence, composez le 911.",
                     'es': "¿Tiene un médico de atención primaria? Esta es la primera persona que debe contactar con sus preocupaciones de salud; a menos que sea una emergencia, marque 911.",
-                    'ch': "",
+                    'ch': "您有初级保健医师吗？这是您应首先联系自己的健康问题的人；除非紧急情况，否则拨打911。",
                     'ru': "Есть ли у вас врач первичной помощи (терапевт)? Это первый человек, к которому Вам следует обратиться в случае, если у Вас есть вопросы, связанные со здоровьем; в экстренном случае наберите 911.  Отметьте только один вариант",
                     'ko': "주치의가 있습니까? (주치의는 건강 이상 문제와 관련하여 가장 우선 연락을 취해야 할 사람입니다. 응급 시에는 911에 전화하십시오.)"
                 },
@@ -420,7 +446,7 @@
                     'default': "Yes, and I CAN get in touch with them",
                     'es': "Sí, y PUEDO ponerme en contacto con ellos.",
                     'fr': "Oui, et JE PEUX les contacter",
-                    'ch': "",
+                    'ch': "是的，我可以与他们联系",
                     'ru': "Да и я МОГУ связаться с ним/ней",
                     'ko': "네, 주치의와 연락이 가능한 상황입니다."
                 },
@@ -436,7 +462,7 @@
                     'default': "Does anyone in your household require any essential medications or routine treatments? GIVE examples: Oxygen, breathing machine or breathing treatments, insulin, dialysis, blood thinners.",
                     'fr': "Quelqu'un dans votre ménage a-t-il besoin de médicaments essentiels ou de traitements de routine? DONNER des exemples: oxygène, appareil respiratoire ou traitements respiratoires, insuline, dialyse, anticoagulants.",
                     'es': "¿Alguien en su hogar requiere medicamentos esenciales o tratamientos de rutina? DÉ ejemplos: oxígeno, máquina de respiración o tratamientos de respiración, insulina, diálisis, anticoagulantes.",
-                    'ch': "",
+                    'ch': "是的，但我无法与他们联系",
                     'ru': "Нуждаетесь ли Вы или проживающие с Вами члены семьи в жизненно важных медикаментах или регулярных лечебных процедурах? Зачитайте примеры: кислород, дыхательный аппарат, дыхательные процедуры, инсулин, диализ, разжижители крови.  Отметьте только один вариант",
                     'ko': "가족 구성원 중 필수적으로 복용해야 하는 약물 및 규칙적인 치료가 필요한 사람이 있습니까? 예시: 산소호흡기, 인공호흡기/호흡 치료, 인슐린, 투석, 항응혈제"
                 },
@@ -444,7 +470,7 @@
                     'default': "Yes, and I HAVE enough medicine or access to treatment",
                     'fr': "Oui, et j'ai suffisamment de médicaments ou accès au traitement",
                     'es': "Sí, y TENGO suficiente medicamento o acceso al tratamiento.",
-                    'ch': "",
+                    'ch': "是的，我有足够的药物或治疗方法",
                     'ru': "Да и у меня ЕСТЬ достаточно медикаментов и доступ к лечебным процедурам",
                     'ko': "네, 충분한 약물을 확보하고 있으며 치료에 대한 접근이 용이한 상태입니다"
                 },
@@ -452,7 +478,7 @@
                     'default': "Yes, and I DO NOT HAVE enough medicine or access to treatment",
                     'fr': "Oui, et je N'AI PAS assez de médicaments ou accès au traitement",
                     'es': "Sí, y NO TENGO suficientes medicamentos ni acceso al tratamiento.",
-                    'ch': "",
+                    'ch': "是的，我没有足够的药物或治疗方法",
                     'ru': "Да, но у меня НЕТ достаточного количества медикаментов и доступа к лечебным процедурам",
                     'ko': "네, 하지만 충분한 약물 및 치료에 대한 접근 용이성을 확보하지 못하고 있습니다."
                 },
@@ -460,7 +486,7 @@
                     'default': "Unsure",
                     'fr': "Incertain",
                     'es': "Inseguro",
-                    'ch': "",
+                    'ch': "不确定",
                     'ru': "Не уверен(а)",
                     'ko': "잘 모름"
                 },
@@ -468,7 +494,7 @@
                     'default': "Do you or any member of your household require access to a healthcare facility in the next three weeks?",
                     'fr': "Vous ou un membre de votre ménage avez-vous besoin d'accéder à un établissement de santé au cours des trois prochaines semaines?",
                     'es': "¿Usted o algún miembro de su hogar necesita acceso a un centro de salud en las próximas tres semanas?",
-                    'ch': "",
+                    'ch': "您或您的任何家庭成员在接下来的三周内需要使用医疗保健设施吗？",
                     'ru': "Потребуется ли Вам или проживающим с Вами членам семьи доступ в медицинское учреждение в следующие три недели? Отметьте только один вариант",
                     'ko': "본인을 포함한 가족 구성원 중 지금 시점으로부터 3주 내에 의료시설에 방문해야 하는 사람이 있습니까?"
                 },
@@ -476,7 +502,7 @@
                     'default': "Does anyone in your household require mobility assistance, such as a wheelchair?",
                     'fr': "Un membre de votre ménage a-t-il besoin d'une aide à la mobilité, comme un fauteuil roulant?",
                     'es': "¿Alguien en su hogar necesita asistencia de movilidad, como una silla de ruedas?",
-                    'ch': "",
+                    'ch': "您家中有人需要轮椅等出行协助吗？",
                     'ru': "Нуждаетесь ли Вы или проживающие с Вами члены семьи в помощи с передвижением, например, в инвалидном кресле? Отметьте только один вариант",
                     'ko': "가족 구성원 중 거동 시 휠체어 등의 도움이 필요한 사람이 있습니까?"
                 },
@@ -484,7 +510,7 @@
                     'default': "This is a chaotic time which can feel overwhelming and anxious. Do you feel speaking to a counselor would be helpful?   If yes, can call NYC mental health/counseling support: +1 (844) 863-9314. Alternatively, can call NYC Well 24/7/365 at 1-888-NYC-WELL (1-888-692-9355) or text WELL to 65173",
                     'fr': "C'est une période chaotique qui peut se sentir accablante et angoissée. Pensez-vous qu'il serait utile de parler à un conseiller? Si oui, vous pouvez appeler le soutien en santé mentale / conseil de New York: +1 (844) 863-9314. Vous pouvez également appeler NYC Well 24/7/365 au 1-888-NYC-WELL (1-888-692-9355) ou envoyer un SMS WELL au 65173",
                     'es': "Este es un momento caótico que puede sentirse abrumador y ansioso. ¿Sientes que hablar con un consejero sería útil? En caso afirmativo, puede llamar al apoyo de salud mental / asesoramiento de NYC: +1 (844) 863-9314. Alternativamente, puede llamar a NYC Well 24/7/365 al 1-888-NYC-WELL (1-888-692-9355) o enviar un mensaje de texto WELL al 65173",
-                    'ch': "",
+                    'ch': "这是一个混乱的时期，可能让人感到压抑和焦虑。您觉得与辅导员交谈会有所帮助吗？如果是，请致电NYC心理健康/咨询支持：+1（844）863-9314。或者，可以致电1-888-NYC-WELL（1-888-692-9355）致电NYC Well 24/7/365，或发送WELL至65173",
                     'ru': "Сложившаяся сложная ситуация может вызывать тревогу и состояние подавленности. Считаете ли Вы, что разговор с консультантом мог бы быть Вам полезным? Если да, Вы можете позвонить в службу психологической поддержки и консультирования по номеру +1 (844) 863-9314. Вы также можете позвонить в службу NYC Well в режиме 24/7/365 по телефону 1-888-NYC-WELL (1-888-692-9355) или отправить сообщение WELL на номер 65173. Отметьте только один вариант",
                     'ko': "현재 혼란스러운 상황으로 인하여 힘들고 불안할 수 있습니다. 이를 해결하기 위해 상담가와 상담하는 것이 도움이 될 것 같다고 느끼십니까? 만약 그렇다면 뉴욕 정신 상담 센터 (NYC mental health/counseling support)에 +1 (844) 863-9314로 전화하실 수 있습니다. 혹은, NYC Well 24/7/365 에 1-888-692-9355로 전화를 걸거나 65173 번호로 WELL이라고 문자 하실 수 있습니다. Red Hook에서는 공식 웹사이트(http://redhookhub.org/coronavirus/)를 통해 도움을 받을 수 있습니다."
                 },
@@ -492,7 +518,7 @@
                     'default': "Can we have your email address so that we can follow up with you with Coronavirus information and resources?",
                     'fr': "Pouvons-nous avoir votre adresse e-mail afin que nous puissions vous contacter avec des informations et des ressources sur le coronavirus?",
                     'es': "¿Podemos tener su dirección de correo electrónico para que podamos darle seguimiento con información y recursos de Coronavirus?",
-                    'ch': "",
+                    'ch': "我们可以提供您的电子邮件地址，以便我们与您一起跟踪冠状病毒的信息和资源吗？",
                     'ru': "Можете ли Вы предоставить нам свой адрес электронной почты, чтобы мы прислали Вам информацию о коронавирусе и другие ресурсы?",
                     'ko': "이메일 주소가 무엇입니까? 이메일로 코로나바이러스감염증-19에 관한 정보와 자료를 제공해드립니다."
                 },
@@ -500,7 +526,7 @@
                     'default': "Enter your email here",
                     'fr': "Entrez votre email ici",
                     'es': "Introduzca su correo electrónico aquí",
-                    'ch': "",
+                    'ch': "在这里输入您的电子邮件",
                     'ru': "Введите адрес электронной почты здесь",
                     'ko': "여기에 이메일을 입력하십시오"
                 },
@@ -508,7 +534,7 @@
                     'default': "Can we have your address or building number?",
                     'fr': "Pouvons-nous avoir votre adresse ou votre numéro de bâtiment?",
                     'es': "¿Podemos tener su dirección o número de edificio?",
-                    'ch': "",
+                    'ch': "我们可以提供您的地址或门牌号码吗？",
                     'ru': "Можете ли Вы предоставить нам свой адрес или номер дома?",
                     'ko': "주소 혹은 건물번호가 무엇입니까?"
                 },
@@ -516,7 +542,7 @@
                     'default': "Enter your address here",
                     'fr': "Entrez votre adresse ici",
                     'es': "Ingrese su dirección aquí",
-                    'ch': "",
+                    'ch': "在这里输入您的地址",
                     'ru': "Введите свой адрес здесь",
                     'ko': "여기에 주소를 입력하십시오"
                 },
@@ -524,7 +550,7 @@
                     'default': "Can we have your zip code?",
                     'fr': "Pouvons-nous avoir votre code postal?",
                     'es': "¿Podemos tener su código postal?",
-                    'ch': "",
+                    'ch': "可以给我们您的邮政编码吗？",
                     'ru': "Можете ли Вы предоставить нам свой почтовый индекс?",
                     'ko': "우편번호가 무엇입니까?"
                 },
@@ -532,7 +558,7 @@
                     'default': "Enter your zip code here",
                     'fr': "Entrez votre code postal ici",
                     'es': "Ingrese su código postal aquí",
-                    'ch': "",
+                    'ch': "在此处输入您的邮政编码",
                     'ru': "Введите свой почтовый индекс здесь",
                     'ko': "여기에 우편 번호를 입력하십시오"
                 },
@@ -540,7 +566,7 @@
                     'default': "We have asked you a number of questions today to help organize resources for you during these challenging times. To confirm, do you consent to us documenting this information? Your responses will only be kept within our support team.",
                     'fr': "Nous vous avons posé un certain nombre de questions aujourd'hui pour vous aider à organiser les ressources pour vous en ces temps difficiles. Pour confirmer, acceptez-vous que nous documentions ces informations? Vos réponses ne seront conservées qu'au sein de notre équipe d'assistance.",
                     'es': "Le hemos hecho una serie de preguntas hoy para ayudarlo a organizar recursos para usted durante estos tiempos difíciles. Para confirmar, ¿acepta que documentemos esta información? Sus respuestas solo se mantendrán dentro de nuestro equipo de soporte.",
-                    'ch': "",
+                    'ch': "今天，我们已经向您提出了许多问题，以帮助您在困难时期为您组织资源。作为确认，您是否同意我们记录此信息？您的回应只会保留在我们的支持团队中。",
                     'ru': "Мы задали Вам несколько вопросов, чтобы предоставить Вам ресурсы, необходимые в такой сложный период. Подтвердите, пожалуйста, что Вы разрешаете нам задокументировать полученную информацию. Ваша информация будет храниться только в группе поддержки. Отметьте только один вариант",
                     'ko': "코로나바이러스감염증-19으로 인해 어려운 상황 속 필요한 정보를 수집하고 확인하고자 오늘의 설문이 진행되었습니다. 정보 제공에 동의하십니까? 제공하신 모든 답변은 Red Hook지원 팀 내부에서만 공유됩니다."
                 },
@@ -548,7 +574,7 @@
                     'default': "We understand that at this time there is a lot a fear associated with the Corona Virus. By participating in this survey we are making sure that you, your family, and friends have the most accurate information available at this time, and access the support you need to address the symptoms of the virus. Finally by sharing your needs with us we will work to make sure Red Hook receives all the support and resources necessary to get through this crisis period. You can stay up to date on all Coronavirus related news and resources at www.redhookhub.org. Please share anything else below:",
                     'fr': "Nous comprenons qu'en ce moment il y a beaucoup de peur associée au virus Corona. En participant à cette enquête, nous nous assurons que vous, votre famille et vos amis disposez des informations les plus précises disponibles à l'heure actuelle, et accédez au support dont vous avez besoin pour lutter contre les symptômes du virus. Enfin, en partageant vos besoins avec nous, nous travaillerons pour nous assurer que Red Hook reçoive tout le soutien et les ressources nécessaires pour traverser cette période de crise. Vous pouvez rester à jour sur toutes les nouvelles et ressources liées au Coronavirus sur www.redhookhub.org. Veuillez partager autre chose ci-dessous:",
                     'es': "Entendemos que en este momento hay mucho miedo asociado con el Virus Corona. Al participar en esta encuesta, nos aseguramos de que usted, su familia y amigos tengan la información más precisa disponible en este momento y accedan al soporte que necesita para abordar los síntomas del virus. Finalmente, al compartir sus necesidades con nosotros, trabajaremos para asegurarnos de que Red Hook reciba todo el apoyo y los recursos necesarios para superar este período de crisis. Puede mantenerse actualizado sobre todas las noticias y recursos relacionados con Coronavirus en www.redhookhub.org. Por favor comparta cualquier otra cosa a continuación:",
-                    'ch': "",
+                    'ch': "我们了解到，目前，与冠状病毒有关的恐惧很多。通过参与此调查，我们可以确保您，您的家人和朋友目前掌握最准确的信息，并获得解决病毒症状所需的支持。最后，通过与我们分享您的需求，我们将确保Red Hook获得在此危机期间度过的所有必要支持和资源。您可以在www.redhookhub.org上了解与冠状病毒相关的所有新闻和资源的最新信息。请在下面分享其他内容：",
                     'ru': "Мы понимаем, что в настоящее время с коронавирусом связано много страхов. Принимая участие в этом опросе, Вы помогаете нам убедиться, что Вы, Ваша семья и Ваши друзья обладаете наиболее актуальной на данный момент информацией и получаете поддержку, необходимую, чтобы справиться с симптомами вируса. Наконец, сообщая нам о Ваших нуждах, Вы помогает Red Hook получить все необходимые ресурсы и поддержку, чтобы пройти через этот кризисный период. Вы можете найти актуальную информацию и ресурсы, связанные с коронавирусом, на сайте www.redhookhub.org. Пожалуйста, поделитесь чем-нибудь еще ниже:",
                     'ko': "현재 코로나 바이러스로 인하여 많은 분들이 두려워하고 계십니다. 이 설문 조사에 참여하심으로써 귀하와 귀하의 가족 및 친구들이 가장 최신의 정확한 정보를 얻고 바이러스 증상을 해결하는 데 필요한 정보 및 지원을 받으실 수 있습니다. 마지막으로 귀하의 필요 사항을 저희와 공유함으로써 저희는 레드 훅이 이 위기 기간을 극복하는 데 필요한 모든 지원과 리소스를 받도록 노력할 것입니다. 또 한 www.redhookhub.org에서 모든 코로나 바이러스 관련 최신 뉴스 및 자료를 확인하실 수 있습니다. 아래에 다른 것을 공유하십시오 :"
                 },
@@ -556,14 +582,30 @@
                     'default': "Short answer here",
                     'fr': "Réponse courte ici",
                     'es': "Respuesta corta aquí",
-                    'ch': "",
+                    'ch': "在这里简短回答",
                     'ru': "Краткий ответ здесь",
                     'ko': "여기에 짧은 대답"
                 },
+                {
+                    'default': 'Submit',
+                    'fr': 'Envoyer le formulaire',
+                    'es': 'Enviar el formulario',
+                    'ch': '提交表格',
+                    'ru': 'отправить форму',
+                    'ko': '양식을 제출하십시오',
+                }
 
             ];
 
         LANGUAGES = ['fr', 'es', 'ch', 'ru', 'ko'];
+
+        LANGUAGES_EMOJIS = [
+            { 'lang': 'fr', 'flag': '🇫🇷' },
+            { 'lang': 'es', 'flag': '🇪🇸' },
+            { 'lang': 'ch', 'flag': '🇨🇳' },
+            { 'lang': 'ko', 'flag': '🇰🇷' },
+            { 'lang': 'en', 'flag': '🇺🇸' },
+            { 'lang': 'ru', 'flag': '🇷🇺' }];
 
         LANGUAGES.forEach(language => {
             var data = {};
@@ -589,6 +631,8 @@
 
         i18n.setLocale(lang); // We set language for the UI.
 
+        var _t = function (s) { return i18n.gettext(s); }
+
         QUESTIONS = [
             {
                 'type': 'text',
@@ -596,7 +640,7 @@
                 'label_value': 'Name',
                 'name': 'name',
                 'id': 'name',
-                'placeholder': 'Enter your name'
+                'placeholder': _t('Enter your name')
             },
             {
                 'type': 'text',
@@ -604,7 +648,7 @@
                 'label_value': 'Phone',
                 'name': 'phone',
                 'id': 'phone',
-                'placeholder': 'Enter your phone'
+                'placeholder': _t('Enter your phone number')
             },
             {//Q3
                 'type': 'radio',
@@ -634,9 +678,9 @@
 
             {//Q6
                 'type': 'check',
-                'choices': $.map(['Under 1 year old', '1 - 5 years old', '6 - 11 years old', '12 - 24 years old', '25 - 35 years old', '36 - 50 years old', '51 - 65 years old', 'older than 65'], _c),
+                'choices': $.map(['< 1', '1-5', '6-11', '12-24', '25-35', '36-50', '51-65', '> 65'], _c_age),
                 'label_for': 'age',
-                'label_value': i18n.gettext('What are the ages of you and everyone in your household? (Check the box of each age range that applies, the total number of members in the household is not relevant)'),
+                'label_value': _t('What are the ages of you and everyone in your household? (Check the box of each age range that applies, the total number of members in the household is not relevant)'),
                 'name': 'age',
                 'id': 'age'
             },
@@ -660,7 +704,7 @@
                 'type': 'radio',
                 'choices': $.map(['Yes, and I CAN get in touch with them', 'Yes, but I CAN NOT get in touch with them', 'No'], _c),
                 'label_for': 'PCP',
-                'label_value': i18n.gettext("9. Do you have a primary care physician? This is the first person you should contact with your health concerns; unless it is an emergency, then dial 911."),
+                'label_value': i18n.gettext("Do you have a primary care physician? This is the first person you should contact with your health concerns; unless it is an emergency, then dial 911."),
                 'name': 'PCP',
                 'id': 'PCP'
             },
@@ -692,49 +736,49 @@
                 'type': 'radio',
                 'choices': $.map(['Yes', 'No'], _c),
                 'label_for': 'psych_health',
-                'label_value': i18n.gettext('This is a chaotic time which can feel overwhelming and anxious. Do you feel speaking to a counselor would be helpful?   If yes, can call NYC mental health/counseling support: +1 (844) 863-9314. Alternatively, can call NYC Well 24/7/365 at 1-888-NYC-WELL (1-888-692-9355) or text WELL to 65173'),
+                'label_value': _t('This is a chaotic time which can feel overwhelming and anxious. Do you feel speaking to a counselor would be helpful?   If yes, can call NYC mental health/counseling support: +1 (844) 863-9314. Alternatively, can call NYC Well 24/7/365 at 1-888-NYC-WELL (1-888-692-9355) or text WELL to 65173'),
                 'name': 'psych_health',
                 'id': 'psych_health'
             },
             {//Q14
                 'type': 'text',
                 'label_for': 'email',
-                'label_value': 'Can we have your email address so that we can follow up with you with Coronavirus information and resources?',
+                'label_value': _t('Can we have your email address so that we can follow up with you with Coronavirus information and resources?'),
                 'name': 'email',
                 'id': 'email',
-                'placeholder': 'Enter your email here'
+                'placeholder': _t('Enter your email here')
             },
             {//Q15
                 'type': 'text',
                 'label_for': 'address',
-                'label_value': 'Can we have your address or building number?',
+                'label_value': _t('Can we have your address or building number?'),
                 'name': 'address',
                 'id': 'address',
-                'placeholder': 'Enter your address here'
+                'placeholder': _t('Enter your address here')
             },
             {//Q16
                 'type': 'text',
                 'label_for': 'zip_code',
-                'label_value': 'Can we have your zip code?',
+                'label_value': _t('Can we have your zip code?'),
                 'name': 'zip_code',
                 'id': 'zip_code',
-                'placeholder': 'Enter your zip code here'
+                'placeholder': _t('Enter your zip code here')
             },
             {//Q17
                 'type': 'radio',
                 'choices': $.map(['Yes', 'No'], _c),
                 'label_for': 'permission1',
-                'label_value': i18n.gettext('We have asked you a number of questions today to help organize resources for you during these challenging times. To confirm, do you consent to us documenting this information? Your responses will only be kept within our support team.'),
+                'label_value': _t('We have asked you a number of questions today to help organize resources for you during these challenging times. To confirm, do you consent to us documenting this information? Your responses will only be kept within our support team.'),
                 'name': 'permission1',
                 'id': 'permission1'
             },
             {//Q18
                 'type': 'text',
                 'label_for': 'notes',
-                'label_value': 'We understand that at this time there is a lot a fear associated with the Corona Virus. By participating in this survey we are making sure that you, your family, and friends have the most accurate information available at this time, and access the support you need to address the symptoms of the virus. Finally by sharing your needs with us we will work to make sure Red Hook receives all the support and resources necessary to get through this crisis period. You can stay up to date on all Coronavirus related news and resources at www.redhookhub.org. Please share anything else below:',
+                'label_value': _t('We understand that at this time there is a lot a fear associated with the Corona Virus. By participating in this survey we are making sure that you, your family, and friends have the most accurate information available at this time, and access the support you need to address the symptoms of the virus. Finally by sharing your needs with us we will work to make sure Red Hook receives all the support and resources necessary to get through this crisis period. You can stay up to date on all Coronavirus related news and resources at www.redhookhub.org. Please share anything else below:'),
                 'name': 'notes',
                 'id': 'notes',
-                'placeholder': 'Short answer here'
+                'placeholder': _t('Short answer here')
             },
 
         ];
@@ -759,6 +803,17 @@
                 $('#survey_questions').append('<div class="row d-flex justify-content-center debug"><hr/></div>');
 
             });
+
+            // The language selector menu
+            var template = $('#language-selector-template').html();
+            var templateScript = Handlebars.compile(template);
+            var context = { 'languages': LANGUAGES_EMOJIS };
+            var html = templateScript(context);
+            $('#language-selector').append(html);
+
+            // We translate the Submit button.
+            $('#submit-button').html(_t('Submit'));
+
 
         });
     </script>
