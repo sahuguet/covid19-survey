@@ -33,7 +33,7 @@
         <div class="row d-flex justify-content-center debug">
 
             <!--Grid column-->
-            <div class="col-md-10 debug">
+            <div id="intro" class="col-md-10 debug">
                 <p>This survey is a community-based screening tool, from the <a href="https://rhicenter.org/">Red Hook
                         Initiative</a> and
                     <a href="https://council.nyc.gov/district-38/">Council Member Carlos Menchaca</a>, to identify those
@@ -63,6 +63,8 @@
                 </p>
             </div>
         </div>
+
+
 
         <script id="text-field-template" type="text/x-handlebars-template">
             <div class="row d-flex justify-content-center debug">
@@ -814,9 +816,56 @@
             // We translate the Submit button.
             $('#submit-button').html(_t('Submit'));
 
+            // We translate the intro section.
+            var template = $('#text-intro-' + lang).html();
+            var templateScript = Handlebars.compile(template);
+            var html = templateScript({});
+            $('#intro').html(html);
 
         });
     </script>
+
+    <script id="text-intro-en" type="text/x-handlebars-template">
+    <p>This survey is a community-based screening tool, from the <a href="https://rhicenter.org/">Red Hook Initiative</a> and <a href="https://council.nyc.gov/district-38/">Council Member Carlos Menchaca</a>, to identify those at medical risk during the COVID-19 pandemic. The tool helps identify people with COVID-19-specific symptoms, and those who have greater health risks overall during the pandemic. This information helps community organizations and medical services provide support to you and your community.
+
+    By completing this survey, and agreeing to consent, you confirm that our community relief
+    effort can store and analyze this data, which we will use to help connect you with resources
+    if needed or if possible, and inform healthcare providers about the needs of you and your
+    community. By using this tool, you agree that our relief effort is not liable for the
+    outcome of its use.
+</p>
+
+<p>Local resources to stay up-to-date with this relief effort and local recommendations:
+    <ul>
+        <a href="https://c19check.com/start">COVID-19-specific risk calculator</a>
+        <a href="http://redhookhub.org/coronavirus/">Red Hook HUB: COVID-19 info page</a>
+        <a href="https://www1.nyc.gov/site/doh/covid/covid-19-main.page">NYC.gov: COVID-19 info page</a>
+        FREE phone-based medicine consultation: 1-844-NYC-4NYC (1-844-692-4692) NYC mental health/counseling: 1-844-863-9314
+    </ul>
+    This tool was built by a team including <a href="https://tech.cornell.edu/">Cornell Tech</a>, <a
+        href="https://urbantechnyc.com/">The GRID</a>, and medical-science volunteers <a
+        href="https://www.matthewkraushar.com/">here</a> and <a
+        href="https://www.linkedin.com/in/tom-pisano-41959243/">here</a>.
+</p>
+</script>
+
+
+    <script id="text-intro-fr" type="text/x-handlebars-template">
+    <p> Cette enquête est un outil de dépistage communautaire, du <a href="https://rhicenter.org/"> Red Hook Initiative </a> et <a href="https://council.nyc.gov/district-38/"> Membre du Conseil Carlos Menchaca </a>, pour identifier les à risque médical pendant le COVID-19 pandémie. L'outil aide à identifier les personnes présentant des symptômes spécifiques au COVID-19 et celles qui présentent globalement de plus grands risques pour la santé pendant la pandémie. Cette information aide les organismes communautaires et les services médicaux vous soutiennent, vous et votre communauté. En remplissant ce sondage et en acceptant de consentir, vous confirmez que notre soulagement communautaire l'effort peut stocker et analyser ces données, que nous utiliserons pour vous aider à vous connecter avec les ressources si nécessaire ou si possible, et informez les prestataires de soins de santé de vos besoins et de ceux de communauté. En utilisant cet outil, vous acceptez que nos efforts de secours ne soient pas responsables des résultat de son utilisation.</p>
+
+    <p> Ressources locales pour rester à jour avec cet effort de secours et recommandations locales:
+<ul>
+    <li><a href="https://c19check.com/start"> Calculateur de risques spécifique à COVID-19 </a></li>
+    <li><a href="http://redhookhub.org/coronavirus/"> Red Hook HUB: page d'informations COVID-19 </a></li>
+    <li><a href="https://www1.nyc.gov/site/doh/covid/covid-19-main.page"> NYC.gov: page d'informations COVID-19 </a></li>
+    <li>Consultation médicale gratuite par téléphone: 1-844-NYC-4NYC (1-844-692-4692) NYC santé mentale / counseling: 1-844-863-9314</li>
+</ul>
+
+   <p>Cet outil a été créé par une équipe comprenant <a href="https://tech.cornell.edu/"> Cornell Tech </a>, <a href = "https://urbantechnyc.com/">The GRID </a>, et des volontaires des sciences médicales <a href = "https://www.matthewkraushar.com/"> ici </a> et <a href = "https://www.linkedin.com/in/tom-pisano-41959243/"> ici </a>.
+  </p>
+  
+</script>
+
 </body>
 
 </html>
