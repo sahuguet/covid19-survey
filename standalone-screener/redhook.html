@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>RedHook | Online COVID-19 Screening</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <script src="gettext.iife.js"></script>
+    <script src="translations.js"></script>
+    <script src="questions.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .debug {
+            border: 1px solid black;
+            display: block;
+            height: 350px;
+        }
+
+        .bottom {
+            position: absolute;
+            display: inline-block;
+            bottom: 0px;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <center>
+        <h1>Redhook COVID-PreScreener</h1>
+    </center>
+
+
+    <div id="container">
+        <div id="questions" class="row d-flex justify-content-center">
+        </div>
+        <center>
+            <div>
+                <a id="update-score">Update Score:</a>
+                <div class="score" id="score"></div>
+            </div>
+        </center>
+
+
+
+        <center>
+            <hr />
+            <div id="footer" class="footer">
+                <p>
+                    More info at ...
+                </p>
+            </div>
+        </center>
+
+    </div>
+
+
+    <script>
+
+        /* Each check/radiobox contains a `data-score` (weight * points).
+         * To compute the score, we simply find all :checked input and their score.
+         */
+        function updateScore() {
+            var total = 0;
+            $('input:checked').each(function (index) {
+                total += $(this).data('score');
+            });
+            console.log('Score = ' + total);
+            $('#score').html(total);
+        }
+
+        $(document).ready(function () {
+            var prev_checkbox_id = "";
+
+            // We load the questions the SON in questions.js.
+            // We apply the Handlebar template.
+            // All the questions are stacked on top of each other.
+            Handlebars.registerHelper("score", function (weight, score) {
+                return weight * score;
+            });
+            var template = $('#field-template').html();
+            $.each(list_of_questions, function (index, value) {
+                var templateScript = Handlebars.compile(template);
+                var context = value;
+                // No `prev` button for first question.
+                context['show_prev'] = (index > 0);
+                // No `next` button for last question.
+                context['show_next'] = (index < (list_of_questions.length - 1));
+                var html = templateScript(context);
+                $('#questions').append(html);
+            });
+
+            // We hide all the questions, except for the first one.
+            $('.question').hide();
+            $('#q1').show();
+
+            // To move back and forth between questions.
+            $('.prev, .next').click(function () {
+                var question_index = parseInt($(this).parent().parents().attr('id').slice(1));
+                $('.question').hide();
+                var offset = 0;
+                if ($(this).hasClass('prev')) { offset = -1; }
+                if ($(this).hasClass('next')) { offset = +1; }
+                $('#q' + (question_index + offset)).show();
+            });
+
+            $('#update-score').click(updateScore);
+        });
+    </script>
+
+    <!-- TEMPLATE -->
+    <script id="field-template" type="text/x-handlebars-template">
+        <div  id={{id}} class="question col-md-6 debug">
+            {{id}}) {{question}}
+            <div class="form-group">
+                {{# if choices}}
+                {{#each choices}}
+                <div class="form-check">
+                    <input class="form-check-input" data-score={{score @root.weight points}} type="{{@root.type}}" name="{{../id}}"
+                        value="{{this.value}}">
+                    <label class="form-check-label">{{this.label}}</label>
+                </div>
+                {{/each }}
+                {{else}}
+                <label class="form-check-label">{{this.label}}</label>
+                <input type="text" name="{{../id}}">
+                {{/if}}
+            </div>
+            <div class="bottom">
+                {{#if show_prev}}<a class="prev">prev</a>{{/if }}
+                {{#if show_next}}<a class="next">next</a>{{/if }}
+            </div>
+        </div>
+</script>
+    <!-- END OF TEMPLATE -->
+
+</body>
+
+</html>
