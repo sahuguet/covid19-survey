@@ -151,13 +151,14 @@
                 context['show_prev'] = (index > 0);
                 // No `next` button for last question.
                 context['show_next'] = (index < (list_of_questions.length - 1));
+                context['index'] = index;
                 var html = templateScript(context);
                 $('#questions').append(html);
             });
 
             // We hide all the questions, except for the first one.
             $('.question').hide();
-            $('#q1').show();
+            $('#q0').show();
 
             // To move back and forth between questions.
             $('.prev, .next').click(function () {
@@ -175,7 +176,7 @@
 
     <!-- TEMPLATE -->
     <script id="field-template" type="text/x-handlebars-template">
-        <div  id={{id}} class="question col-md-6 debug">
+        <div  id="q{{index}}" class="question col-md-6 debug">
             {{id}}) {{question}}
             <div class="form-group">
                 {{# if choices}}
