@@ -7,7 +7,7 @@
 }
 body {
     -webkit-font-smoothing: antialiased;
-    background-color: #eee;
+    background-color: #f8f8f8 !important;
     color: #333;
 }
 input[type=checkbox], input[type=radio] {
@@ -20,24 +20,29 @@ header.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #002b5c;
 }
 .header h1 {
     text-transform: uppercase;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 22px;
-    color: #fff;
+    color: #FFC72C;
     font-weight: bold;
     text-align: left;
     clear: none !important;
 }
 .header h1 strong {
-    font-weight: 100;
+    font-weight: 400;
+    font-family: 'Source Sans Pro', sans-serif;
     font-size: 20px;
     color: #fff;
     margin-left: 10px;
     padding-left: 15px;
     border-left: 1px solid rgba(255,255,255,0.25);
     text-transform: capitalize;
+}
+header a:hover {
+    text-decoration: none !important;
 }
 footer {
     padding: 40px;
@@ -94,12 +99,12 @@ h2.title {
 a.next {
     right: 0;
     position: absolute;
-    border: 2px solid #ccc;
+    border: 2px solid #ddd;
     background-color: #fafafa;
     letter-spacing: .5px;
     color: #0071bb !important;
     text-align: center;
-    padding: 4px 12px;
+    padding: 4px 16px;
     font-size: 14px;
     font-family: 'Source Sans Pro', sans-serif;
     text-transform: uppercase;
@@ -110,20 +115,20 @@ a.prev:hover {
     color: #333 !important;
 }
 a.prev {
-    border: 2px solid #ccc;
+    border: 2px solid #ddd;
     background-color: #fafafa;
     color: #0071bb !important;
     text-align: center;
     letter-spacing: .5px;
-    padding: 4px 12px;
+    padding: 4px 16px;
     font-size: 14px;
     font-family: 'Source Sans Pro', sans-serif;
     text-transform: uppercase;
     border-radius: 6px;
 }
 #update-score {
-    background-color: #0071bb;
-    color: #fff;
+    background-color: #FFC72C;
+    color: #333;
     text-align: center;
     letter-spacing: .5px;
     padding: 10px 20px;
@@ -135,9 +140,8 @@ a.prev {
     border: 2px solid transparent;
 }
 #update-score:hover {
-    background-color: #eee;
-    border: 2px solid #ccc !important;
-    color: #0071bb !important;
+    background-color: #ddd;
+    color: #002b5c !important;
 }
 .score-container {
     justify-content: center;
@@ -151,8 +155,9 @@ a.prev {
     font-weight: bold;
     display: inline-block;
     margin-left: 0px;
-    border: 2px solid #0071bb;
-    color: #fff !important;
+    border: 2px solid transparent;
+    background-color: #fff;
+    color: #333 !important;
     text-align: center;
     letter-spacing: .5px;
     padding: 7px 10px 7px;
