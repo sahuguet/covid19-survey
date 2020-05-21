@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>Red Hook, Brooklyn | Community Covid Checkup</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <script src="gettext.iife.js"></script>
+    <script src="translations.js"></script>
+    <script src="questions.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <header class="header" >
+        <a href="../"><h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1></a>
+        <div class="score-container">
+            <a id="update-score">Update My Score</a>
+            <div class="score" id="score">🤒</div>
+        </div>
+    </header>
+
+    <div class="d-flex justify-content-center">
+        <div id="outcome-emergency" class="outcome off col-md-4">Emergency</div>
+        <div id="outcome-doctor" class="outcome off col-md-4">Call doc or telemedecine</div>
+        <div id="outcome-mental-health" class="outcome off col-md-4">Mental health + social work</div>
+    </div>
+
+    <article id="container">
+        <div id="questions" class="d-flex justify-content-center">
+        </div>
+    </article>
+
+    <footer>
+        <ul class="footer-logos">
+            <li class="logo" style="width: 70px;">
+                <img src="images/menchaca_logo.svg">
+            </li>
+            <li class="logo">
+                <img src="images/Cornell_Tech.svg">
+            </li>
+            <li class="logo" style="width: 70px;">
+                <img src="images/RHI.svg">
+            </li>
+            <li class="logo">
+                <img src="images/urban_tech.png">
+            </li>
+            <li class="logo" style="width: 70px;">
+                <img src="images/CIVLAB.png">
+            </li>
+        </ul>
+    </footer>
+
+
+    <script>
+
+        /* Each check/radiobox contains a `data-score` (weight * points).
+         * To compute the score, we simply find all :checked input and their score.
+         */
+        function updateScore() {
+            var total = 0;
+            $('input:checked').each(function (index) {
+                total += $(this).data('score');
+            });
+            console.log('Score = ' + total);
+            $('#score').html(total);
+
+            var _C = getAllCodes();
+            // We can write arbitray formulas for each bucket.
+            var emergency = _C['E01'] || _C['E02'];
+            var call_doc = _C['M04'] || _C['M10'];
+            var mental_health = _C['MH02'];
+
+            if (emergency) {
+                $('#outcome-emergency').removeClass('off')
+            } else {
+                $('#outcome-emergency').addClass('off');
+            }
+            if (call_doc) {
+                $('#outcome-doctor').removeClass('off')
+            } else {
+                $('#outcome-doctor').addClass('off');
+            }
+            if (mental_health) {
+                $('#outcome-mental-health').removeClass('off')
+            } else {
+                $('#outcome-mental-health').addClass('off');
+            }
+
+        }
+
+
+        function getAllCodes() {
+            var allCodes = {}
+
+            // First pass, we grab all the codes and set them to false.
+            $('input').each(function (index) {
+                console.log($(this).html());
+                if ($(this).data('code')) {
+                    allCodes[$(this).data('code')] = false;
+                }
+            });
+
+            // Second pass, the checked ones are set to true.
+            $('input:checked').each(function (index) {
+                console.log($(this).html());
+                if ($(this).data('code')) {
+                    allCodes[$(this).data('code')] = true;
+                }
+            });
+            return allCodes;
+        }
+
+        $(document).ready(function () {
+            // We load the questions the SON in questions.js.
+            // We apply the Handlebar template.
+            // All the questions are stacked on top of each other.
+            Handlebars.registerHelper("score", function (weight, score) {
+                return weight * score;
+            });
+            var template = $('#field-template').html();
+            $.each(list_of_questions, function (index, value) {
+                var templateScript = Handlebars.compile(template);
+                var context = value;
+                // No `prev` button for first question.
+                context['show_prev'] = (index > 0);
+                // No `next` button for last question.
+                context['show_next'] = (index < (list_of_questions.length - 1));
+                context['index'] = index;
+                var html = templateScript(context);
+                $('#questions').append(html);
+            });
+
+            // We hide all the questions, except for the first one.
+            $('.question').hide();
+            $('#q0').show();
+
+            // To move back and forth between questions.
+            $('.prev, .next').click(function () {
+                var question_index = parseInt($(this).parent().parents().attr('id').slice(1));
+                $('.question').hide();
+                var offset = 0;
+                if ($(this).hasClass('prev')) { offset = -1; }
+                if ($(this).hasClass('next')) { offset = +1; }
+                $('#q' + (question_index + offset)).show();
+            });
+
+            $('#update-score').click(updateScore);
+        });
+    </script>
+
+    <!-- TEMPLATE -->
+    <script id="field-template" type="text/x-handlebars-template">
+        <div id="q{{index}}" class="question col-md-6">
+            <h2 class="title">How's Your Health?</h2>
+            {{id}}) {{question}}
+            <div class="form-group">
+                {{# if choices}}
+                {{#each choices}}
+                <div class="form-check">
+                    <input class="form-check-input" {{# if code}}data-code="{{code}}"{{/if}} data-score={{score @root.weight points}} type="{{@root.type}}" name="{{../id}}"
+                        value="{{this.value}}">
+                    <label class="form-check-label">{{this.label}}</label>
+                </div>
+                {{/each }}
+                {{else}}
+                <label class="form-check-label">{{this.label}}</label>
+                <input type="text" name="{{../id}}">
+                {{/if}}
+            </div>
+            <div class="nav">
+                {{#if show_prev}}<a class="prev">← prev</a>{{/if }}
+                {{#if show_next}}<a class="next">next →</a>{{/if }}
+            </div>
+        </div>
+</script>
+    <!-- END OF TEMPLATE -->
+
+</body>
+
+</html>
