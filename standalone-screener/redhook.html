@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
-    <title>RedHook | Online COVID-19 Screening</title>
+    <title>Red Hook, Brooklyn | Community Covid Checkup</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,67 +14,51 @@
     <script src="translations.js"></script>
     <script src="questions.js"></script>
 
-
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        .debug {
-            border: 1px solid black;
-            display: block;
-            height: 350px;
-        }
-
-        .bottom {
-            position: absolute;
-            display: inline-block;
-            bottom: 0px;
-        }
-
-        .outcome {
-            height: 50px;
-            border: 1px solid black;
-            background-color: lightgreen;
-        }
-
-        .outcome.off {
-            background-color: lightgray;
-        }
-    </style>
 
 </head>
 
 <body>
 
-
-    <center>
-        <h1>Redhook COVID-PreScreener</h1>
-    </center>
-
-
-    <div id="container">
-        <div id="questions" class="row d-flex justify-content-center">
+    <header class="header" >
+        <h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1>
+        <div class="score-container">
+            <a id="update-score">Update My Score</a>
+            <div class="score" id="score">🤒</div>
         </div>
-        <center>
-            <div>
-                <a id="update-score">Update Score:</a>
-                <div class="score" id="score"></div>
-            </div>
-        </center>
-        <div class="row d-flex justify-content-center">
-            <div id="outcome-emergency" class="outcome off col-md-2">Emergency</div>
-            <div id="outcome-doctor" class="outcome off col-md-2">Call doc or telemedecine</div>
-            <div id="outcome-mental-health" class="outcome off col-md-2">Mental health + social work</div>
-        </div>
+    </header>
 
-        <center>
-            <hr />
-            <div id="footer" class="footer">
-                <p>
-                    More info at ...
-                </p>
-            </div>
-        </center>
-
+    <div class="d-flex justify-content-center">
+        <div id="outcome-emergency" class="outcome off col-md-4">Emergency</div>
+        <div id="outcome-doctor" class="outcome off col-md-4">Call doc or telemedecine</div>
+        <div id="outcome-mental-health" class="outcome off col-md-4">Mental health + social work</div>
     </div>
+
+    <article id="container">
+        <div id="questions" class="d-flex justify-content-center">
+        </div>
+    </article>
+
+    <footer>
+        <ul class="footer-logos">
+            <li class="logo" style="width: 70px;">
+                <img src="images/menchaca_logo.svg">
+            </li>
+            <li class="logo">
+                <img src="images/Cornell_Tech.svg">
+            </li>
+            <li class="logo" style="width: 70px;">
+                <img src="images/RHI.svg">
+            </li>
+            <li class="logo">
+                <img src="images/urban_tech.png">
+            </li>
+            <li class="logo" style="width: 70px;">
+                <img src="images/CIVLAB.png">
+            </li>
+        </ul>
+    </footer>
 
 
     <script>
@@ -176,7 +160,8 @@
 
     <!-- TEMPLATE -->
     <script id="field-template" type="text/x-handlebars-template">
-        <div  id="q{{index}}" class="question col-md-6 debug">
+        <div id="q{{index}}" class="question col-md-6">
+            <h2 class="title">How's Your Health?</h2>
             {{id}}) {{question}}
             <div class="form-group">
                 {{# if choices}}
@@ -192,9 +177,9 @@
                 <input type="text" name="{{../id}}">
                 {{/if}}
             </div>
-            <div class="bottom">
-                {{#if show_prev}}<a class="prev">prev</a>{{/if }}
-                {{#if show_next}}<a class="next">next</a>{{/if }}
+            <div class="nav">
+                {{#if show_prev}}<a class="prev">← prev</a>{{/if }}
+                {{#if show_next}}<a class="next">next →</a>{{/if }}
             </div>
         </div>
 </script>
