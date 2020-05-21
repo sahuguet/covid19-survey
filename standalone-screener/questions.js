@@ -1,17 +1,17 @@
 var list_of_questions = [
     {
-        'id': 'q1',
+        'id': '1',
         'weight': 0,
         'type': 'radio',
         'question': _t('How was this survey performed?'),
         'choices': [
-            { 'label': _t('online'), 'points': 0 },
-            { 'label': _t('by phone'), 'points': 0 }
+            { 'label': _t('Online'), 'points': 0 },
+            { 'label': _t('by Phone'), 'points': 0 }
         ],
         'image_url': 'images/fever.svg'
     },
     {
-        'id': 'q2',
+        'id': '2',
         'weight': 2,
         'type': 'radio',
         'question': _t('What is your age?'),
@@ -28,7 +28,7 @@ var list_of_questions = [
         'image_url': 'images/cough.svg'
     },
     {
-        'id': 'q3',
+        'id': '3',
         'weight': 10,
         'type': 'checkbox',
         'question': _t('Right now, are you experiencing symptoms associated with Coronavirus infection?'),
@@ -39,13 +39,13 @@ var list_of_questions = [
             { 'code': 'M04', 'label': _t('Cough'), 'points': 4 },
             { 'code': 'M04', 'label': _t('Fatigue'), 'points': 1 },
             { 'code': 'M04', 'label': _t('Diarrhea'), 'points': 1 },
-            { 'code': 'E01', 'label': _t('Difficulty Breating'), 'points': 6 },
+            { 'code': 'E01', 'label': _t('Difficulty Breathing'), 'points': 6 },
             { 'code': 'E02', 'label': _t('Chest Pain'), 'points': 6 },
         ],
         'image_url': 'images/cough.svg'
     },
     {
-        'id': 'q4',
+        'id': '4',
         'weight': 10,
         'type': 'checkbox',
         'question': _t('Do you suffer from any of the following?'),
@@ -65,7 +65,7 @@ var list_of_questions = [
         ],
     },
     {
-        'id': 'q5',
+        'id': '5',
         'weight': 10,
         'type': 'radio',
         'question': 'Do you have a primary care physician?',
@@ -76,7 +76,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q6',
+        'id': '6',
         'weight': 10,
         'type': 'radio',
         'question': 'Do you require any essential medications or routine treatments?',
@@ -91,7 +91,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q6a',
+        'id': '6a',
         'weight': 10,
         'type': 'radio',
         'question': 'If yes to #6, do you have enough supply and access to this medicine or treatment?',
@@ -101,7 +101,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q7',
+        'id': '7',
         'weight': 3,
         'question': _t('Do you require access to a healthcare facility in the next three weeks?'),
         'type': 'radio',
@@ -111,7 +111,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q8',
+        'id': '8',
         'weight': 1,
         'question': _t('Does anyone in your household require disability assistance, such as a wheelchair ?'),
         'type': 'radio',
@@ -121,7 +121,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q9',
+        'id': '9',
         'weight': 1,
         'question': _t('This is a chaotic time which can feel overwhelming and anxious. Do you feel speaking to a counselor would be helpful?'),
         'type': 'radio',
@@ -131,7 +131,7 @@ var list_of_questions = [
         ]
     },
     {
-        'id': 'q10',
+        'id': '10',
         'weight': 0,
         'question': _t('What is your zipcode?'),
         'type': 'text',
