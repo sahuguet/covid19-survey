@@ -4,7 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
     <title>Red Hook, Brooklyn | Community Covid Checkup</title>
-
+    <link rel="icon" 
+    type="image/png" 
+    href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -21,10 +23,8 @@
 
 <body>
 
-    <header class="header">
-        <a href="#">
-            <h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1>
-        </a>
+    <header class="header" >
+        <a href="../"><h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1></a>
         <div class="score-container">
             <a id="update-score">Update My Score</a>
             <div class="score" id="score">🤒</div>
@@ -32,10 +32,9 @@
     </header>
 
     <div class="d-flex justify-content-center">
-        <div id="outcome-emergency" class="outcome off col-md-3">Emergency</div>
-        <div id="outcome-doctor" class="outcome off col-md-3">Call doc or telemedecine</div>
-        <div id="outcome-mental-health" class="outcome off col-md-3">Mental health + social work</div>
-        <div id="outcome-you-are-ok" class="outcome off col-md-3">You are OK</div>
+        <div id="outcome-emergency" class="outcome off col-md-4">Emergency</div>
+        <div id="outcome-doctor" class="outcome off col-md-4">Call doc or telemedecine</div>
+        <div id="outcome-mental-health" class="outcome off col-md-4">Mental health + social work</div>
     </div>
 
     <article id="container">
@@ -55,7 +54,7 @@
                 <img src="images/RHI.svg">
             </li>
             <li class="logo">
-                <img src="images/the_grid_logo.png">
+                <img src="images/urban_tech.png">
             </li>
             <li class="logo" style="width: 70px;">
                 <img src="images/CIVLAB.png">
@@ -82,7 +81,6 @@
             var emergency = _C['E01'] || _C['E02'];
             var call_doc = _C['M04'] || _C['M10'];
             var mental_health = _C['MH02'];
-            var you_are_ok = !emergency && !call_doc && !mental_health;
 
             if (emergency) {
                 $('#outcome-emergency').removeClass('off')
@@ -98,11 +96,6 @@
                 $('#outcome-mental-health').removeClass('off')
             } else {
                 $('#outcome-mental-health').addClass('off');
-            }
-            if (you_are_ok) {
-                $('#outcome-you-are-ok').removeClass('off');
-            } else {
-                $('#outcome-you-are-ok').addClass('off');
             }
 
         }
