@@ -63,6 +63,7 @@
             <div id="outcome-emergency" class="outcome off col-md-2">Emergency</div>
             <div id="outcome-doctor" class="outcome off col-md-2">Call doc or telemedecine</div>
             <div id="outcome-mental-health" class="outcome off col-md-2">Mental health + social work</div>
+            <div id="outcome-you-are-ok" class="outcome off col-md-2">You are OK</div>
         </div>
 
         <center>
@@ -95,6 +96,7 @@
             var emergency = _C['E01'] || _C['E02'];
             var call_doc = _C['M04'] || _C['M10'];
             var mental_health = _C['MH02'];
+            var you_are_ok = !emergency && !call_doc && !mental_health;
 
             if (emergency) {
                 $('#outcome-emergency').removeClass('off')
@@ -110,6 +112,11 @@
                 $('#outcome-mental-health').removeClass('off')
             } else {
                 $('#outcome-mental-health').addClass('off');
+            }
+            if (you_are_ok) {
+                $('#outcome-you-are-ok').removeClass('off');
+            } else {
+                $('#outcome-you-are-ok').addClass('off');
             }
 
         }
