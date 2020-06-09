@@ -22,20 +22,29 @@
 <body>
 
     <header class="header">
-        <a href="../">
+        <a href="#">
             <h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1>
         </a>
         <div class="score-container">
-            <a id="update-score">Update My Score</a>
+            <span id="update-score">My Score</span>
             <div class="score" id="score">🤒</div>
         </div>
     </header>
 
     <div class="d-flex justify-content-center">
-        <div id="outcome-emergency" class="outcome off col-md-3">Emergency</div>
-        <div id="outcome-doctor" class="outcome off col-md-3">Call doc or telemedecine</div>
-        <div id="outcome-mental-health" class="outcome off col-md-3">Mental health + social work</div>
-        <div id="outcome-you-are-ok" class="outcome off col-md-3">You are OK</div>
+        <div id="outcome-emergency" class="outcome off col-md-3">
+            Emergency
+            <a class="more-info" data-outcome="emergency" href="#">more info</a>
+        </div>
+        <div id="outcome-doctor" class="outcome off col-md-3">Call doc or telemedecine
+            <a class="more-info" data-outcome="doctor" href="#">more info</a>
+        </div>
+        <div id="outcome-mental-health" class="outcome off col-md-3">Mental health + social work
+            <a class="more-info" data-outcome="mental-health" href="#">more info</a>
+        </div>
+        <div id="outcome-you-are-ok" class="outcome off col-md-3">You are OK
+            <a class="more-info" data-outcome="ok" href="#">more info</a>
+        </div>
     </div>
 
     <article id="container">
@@ -163,7 +172,14 @@
                 $('#q' + (question_index + offset)).show();
             });
 
-            $('#update-score').click(updateScore);
+            // $('#update-score').click(updateScore);
+            $('compute-score').click(updateScore);
+            // We fix the `more info` links.
+            // Files start with predix `recommendations-` followed by the language.
+            $('.more-info').each(function (index) {
+                $(this).attr('href', 'recommendations-' + lang + '.html?topic=' + $(this).data('outcome'));
+                console.log('recommendatons-' + lang + '.html?topic=' + $(this).data('outcome'));
+            });
         });
     </script>
 
@@ -189,6 +205,9 @@
             <div class="nav">
                 {{#if show_prev}}<a class="prev">← prev</a>{{/if }}
                 {{#if show_next}}<a class="next">next →</a>{{/if }}
+                {{#if show_next}}<a class="next">next →</a>
+                {{else}}<a class="compute-score">compute score</a>
+                {{/if }}
             </div>
         </div>
 </script>
