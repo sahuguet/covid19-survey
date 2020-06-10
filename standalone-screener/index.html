@@ -9,6 +9,7 @@
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
 
     <script src="gettext.iife.js"></script>
     <script src="translations.js"></script>
@@ -16,6 +17,7 @@
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="normalize.css">
 
 </head>
 
@@ -25,25 +27,42 @@
         <a href="#">
             <h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1>
         </a>
-        <div class="score-container">
-            <span id="update-score">My Score</span>
-            <div class="score" id="score">🤒</div>
-        </div>
     </header>
-
-    <div class="d-flex justify-content-center">
+    <!--<div class="score-container">
+        <span id="update-score">My Score:</span>
+        <div class="score" id="score">🤒</div>
+    </div>-->
+    <!-- Your Score -->
+    <div id="score-container">
+        <h2>Your Score</h2>
+        <p class="description">Description text on how this score is determined.</p>
+        <!-- Score Meter -->
+        <div class="pie-wrapper progress-30 style-2">
+            <span class="label"><div class="score" id="score">🤒</div></span>
+            <div class="pie">
+              <div class="left-side half-circle"></div>
+              <div class="right-side half-circle"></div>
+            </div>
+            <div class="shadow"></div>
+          </div>
+    </div>
+    <!-- Scoring Buckets -->
+    <div class="outcome-container d-flex justify-content-center">
+        <!-- LOW RISK -->
+        <div id="outcome-you-are-ok" class="outcome off col-md-3">
+            <a class="more-info" data-outcome="ok" href="#">Low Risk <i data-feather="thumbs-up"></i></a>
+        </div>
+        <!-- CALL DOCTOR -->
+        <div id="outcome-doctor" class="outcome off col-md-3">
+            <span class="more-info" data-outcome="doctor" href="#">Call doc or telemedecine <i data-feather="phone-call"></i></span>
+        </div>
+        <!-- MENTAL HEALTH -->
+        <div id="outcome-mental-health" class="outcome off col-md-3">
+            <span class="more-info" data-outcome="mental-health" href="#">Mental health + social work <i data-feather="heart"></i></span>
+        </div>
+        <!-- EMERGENCY -->
         <div id="outcome-emergency" class="outcome off col-md-3">
-            Emergency
-            <a class="more-info" data-outcome="emergency" href="#">more info</a>
-        </div>
-        <div id="outcome-doctor" class="outcome off col-md-3">Call doc or telemedecine
-            <a class="more-info" data-outcome="doctor" href="#">more info</a>
-        </div>
-        <div id="outcome-mental-health" class="outcome off col-md-3">Mental health + social work
-            <a class="more-info" data-outcome="mental-health" href="#">more info</a>
-        </div>
-        <div id="outcome-you-are-ok" class="outcome off col-md-3">You are OK
-            <a class="more-info" data-outcome="ok" href="#">more info</a>
+            <span class="more-info" data-outcome="emergency" href="#">Emergency <i data-feather="alert-triangle"></i></span>
         </div>
     </div>
 
@@ -60,8 +79,8 @@
             <li class="logo">
                 <img src="images/Cornell_Tech.svg">
             </li>
-            <li class="logo" style="width: 70px;">
-                <img src="images/RHI.svg">
+            <li class="logo" style="width: 90px;">
+                <a href="https://rhicenter.org/" target="_blank"><img src="images/RHI.jpg"></a>
             </li>
             <li class="logo">
                 <img src="images/the_grid_logo.png">
@@ -72,6 +91,9 @@
         </ul>
     </footer>
 
+    <script>
+        feather.replace()
+      </script>
 
     <script>
 
@@ -174,7 +196,7 @@
 
             // $('#update-score').click(updateScore);
             $('.compute-score').click(updateScore);
-            // We fix the `more info` links.
+            // We fix the `More Info` links.
             // Files start with predix `recommendations-` followed by the language.
             $('.more-info').each(function (index) {
                 $(this).attr('href', 'recommendations-' + lang + '.html?topic=' + $(this).data('outcome'));
@@ -185,7 +207,7 @@
 
     <!-- TEMPLATE -->
     <script id="field-template" type="text/x-handlebars-template">
-        <div id="q{{index}}" class="question col-md-6">
+        <div id="q{{index}}" class="question col-md-8">
             <h2 class="title">How's Your Health?</h2>
             {{id}}) {{question}}
             <div class="form-group">
@@ -203,13 +225,16 @@
                 {{/if}}
             </div>
             <div class="nav">
-                {{#if show_prev}}<a class="prev">← prev</a>{{/if }}
-                {{#if show_next}}<a class="next">next →</a>{{/if }}
-                {{#if show_next}}<a class="next">next →</a>
-                {{else}}<a class="compute-score">compute score</a>
+                {{#if show_prev}}<a class="prev"><i data-feather="arrow-left"></i> prev</a>{{/if }}
+                {{#if show_next}}<a class="next">next <i data-feather="arrow-right"></i></a>{{/if }}
+                {{#if show_next}}<a class="next">next <i data-feather="arrow-right"></i></a>
+                {{else}}<br/><a class="compute-score">compute score</a>
                 {{/if }}
             </div>
         </div>
+        <script>
+            feather.replace()
+        </script>
 </script>
     <!-- END OF TEMPLATE -->
 
