@@ -89,8 +89,8 @@ footer ul.footer-logos li.logo img {
 .nav {
     position: relative;
     clear: both;
-    margin-top: 25px !important;
-    height: 40px;
+    margin-top: 40px !important;
+    min-height: 40px;
     justify-content: space-between;
     align-items: center;
 }
@@ -115,12 +115,12 @@ a.next {
     letter-spacing: .5px;
     color: #005BE7 !important;
     text-align: center;
-    padding: 4px 16px;
+    padding: 8px;
     font-size: 15px;
     font-family: 'Source Sans Pro', sans-serif;
     text-transform: uppercase;
     border-radius: 8px;
-    width: 48%;
+    width: 36%;
 }
 a.next svg,
 a.prev svg {
@@ -138,7 +138,7 @@ a.prev:hover svg {
 a.next:hover,
 a.prev:hover {
     color: #fff !important;
-    border-color: rgb(0, 77, 192) !important;
+    border-color: #003e9b !important;
     box-shadow: none !important;
     background-color: #005BE7;
 }
@@ -148,12 +148,37 @@ a.prev {
     color: #005BE7 !important;
     text-align: center;
     letter-spacing: .5px;
-    padding: 4px 16px;
+    padding: 8px;
     font-size: 15px;
     font-family: 'Source Sans Pro', sans-serif;
     text-transform: uppercase;
     border-radius: 8px;
-    width: 48%;
+    width: 36%;
+}
+a.compute-score {
+    color: #fff !important;
+    border-color: #003e9b !important;
+    box-shadow: none !important;
+    background-color: #005BE7;
+    text-align: center;
+    letter-spacing: .5px;
+    padding: 8px;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-transform: uppercase;
+    border-radius: 8px;
+    width: 36%;
+}
+a.compute-score svg {
+    stroke: #fff;
+    height: 18px;
+    margin-right: 5px;
+    margin-top: -3px;
+    vertical-align: middle;
+}
+a.compute-score:hover {
+    opacity: 0.5;
+    background-color: #005BE7 !important;
 }
 #update-score {
     background-color: #FFC72C;
@@ -172,6 +197,158 @@ a.prev {
     background-color: #ddd;
     color: #002b5c !important;
 }
+.form-group {
+    margin-top: 25px;
+}
+.form-check {
+    padding: 0;
+    line-height: 1rem;
+    padding-left: 3.5rem !important;
+}
+.outcome-container {
+    padding: 0 60px;
+    display: flex;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.outcome {
+    height: 60px;
+    width: 100%;
+    border-radius: 8px;
+    margin: 0 20px 40px 0;
+    padding: 0 !important;
+    /* border: 1px solid black; */
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    font-size: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    color:#333;
+}
+.outcome.off .more-info,
+#outcome-you-are-ok.outcome.off .more-info,
+#outcome-doctor.outcome.off .more-info,
+#outcome-mental-health.outcome.off .more-info,
+#outcome-emergency.outcome.off .more-info {
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1em;
+    font-family: 'Source Sans Pro', sans-serif;
+    color:#aaa;
+    text-decoration: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: none;
+}
+.outcome .more-info svg,
+.outcome.off .more-info svg,
+#outcome-you-are-ok.outcome.off .more-info svg,
+#outcome-doctor.outcome.off .more-info svg,
+#outcome-mental-health.outcome.off .more-info svg,
+#outcome-emergency.outcome.off .more-info svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    stroke: #aaa;
+    fill: transparent;
+    height: 1.25em !important;
+}
+#outcome-you-are-ok.outcome .more-info {
+    color: #333;
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.15);
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1em;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-decoration: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #43E794;
+    border-radius: 8px;
+}
+#outcome-doctor.outcome .more-info,
+#outcome-mental-health.outcome .more-info,
+#outcome-emergency.outcome .more-info  {
+    color: #333;
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.15);
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1em;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-decoration: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #FD302B;
+    border-radius: 8px;
+}
+#outcome-doctor.outcome .more-info svg,
+#outcome-mental-health.outcome .more-info svg,
+#outcome-emergency.outcome .more-info svg   {
+    fill: #FD302B;
+    stroke: #333;
+}
+.outcome .more-info:hover,
+.outcome.off .more-info:hover {
+    color: #fff !important;
+    border-color: rgb(0, 77, 192) !important;
+    box-shadow: none !important;
+    background-color: #005BE7;
+}
+.outcome .more-info:hover svg,
+.outcome.off .more-info:hover svg {
+    fill: #005BE7 !important;
+    stroke: #fff !important;
+}
+#outcome-you-are-ok.outcome .more-info svg {
+    fill: #43E794;
+    stroke: #333;
+}
+
+.outcome.off {
+    background-color: #f8f8f8;
+    color: #ddd;
+    box-shadow: none;
+}
+header h1 {
+    color: #fff;
+    text-align: center;
+}
+#questions .question {
+    font-size: 24px;
+    margin-bottom: 20px;
+    line-height: 28px;
+    font-weight: bold;
+}
+#questions label {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: regular;
+    margin: 10px 0;
+    text-indent: -1.65em;
+}
+
+/* Score Chart */
+
 .score-container {
     justify-content: center;
     text-align: center;
@@ -198,107 +375,6 @@ a.prev {
     border-radius: 0px 8px 8px 0px;
     border-left: 0;
 }
-.form-group {
-    margin-top: 25px;
-}
-.form-check {
-    padding: 0;
-    line-height: 1rem;
-    padding-left: 3.5rem !important;
-}
-.outcome-container {
-    padding: 0 60px;
-    display: flex;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.outcome {
-    height: 60px;
-    width: 100%;
-    border-radius: 8px;
-    margin: 0 20px 40px 0;
-    padding: 0 !important;
-    /* border: 1px solid black; */
-    background-color: #DE1435;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    display: flex;
-    font-size: 15px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: bold;
-    color:#333;
-}
-.outcome .more-info {
-    padding: 15px;
-    font-size: 15px;
-    line-height: 1em;
-    font-family: 'Source Sans Pro', sans-serif;
-    color:#aaa;
-    text-decoration: none;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-}
-.more-info svg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-    stroke: #aaa;
-    height: 1.25em !important;
-}
-#outcome-you-are-ok .more-info {
-    color: #333;
-    border-color: #43E794;
-    box-shadow: 0px 2px 2px rgba(0,0,0,0.15);
-}
-.outcome .more-info:hover {
-    color: #fff !important;
-    border-color: rgb(0, 77, 192) !important;
-    box-shadow: none !important;
-    background-color: #005BE7;
-}
-.outcome .more-info:hover svg {
-    fill: #005BE7 !important;
-    stroke: #fff !important;
-}
-#outcome-you-are-ok svg {
-    fill: #43E794;
-    stroke: #333;
-}
-
-.outcome.off {
-    background-color: #f8f8f8;
-    color: #ddd;
-}
-header h1 {
-    color: #fff;
-    text-align: center;
-}
-#questions .question {
-    font-size: 26px;
-    margin-bottom: 20px;
-    line-height: 28px;
-    font-weight: bold;
-}
-#questions label {
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: regular;
-    margin: 10px 0;
-    text-indent: -1.65em;
-}
-
-/* Score Chart */
-
 #score-container {
     padding: 20px 40px;
 }
@@ -464,6 +540,240 @@ header h1 {
           transform: rotate(180deg);
 }
 
+/* Recommendation Page */
+
+a.back {
+    font-size: 18px;
+    line-height: 24px;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+a.back svg {
+    stroke: #fff;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: -3px;
+}
+a.back:hover {
+    opacity: 0.5;
+    background: transparent;
+}
+.recommendation-container,
+.recommendation-card {
+    border: 0;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 25px;
+    margin: 40px 0;
+}
+.recommendation-container h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #005BE7;
+    text-transform: uppercase;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.recommendation-container p,
+.recommendation-card p {
+    margin: 0 0 20px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.recommendation-container p svg {
+    height: 18px;
+    margin-top: -2px;
+    vertical-align: middle;
+    margin-right: 5px;
+    stroke: #005BE7;
+}
+.recommendation-container p:last-child {
+    margin: 0;
+}
+.recommendation-container .recommendation p a,
+.recommendation-card p a,
+.list-link a {
+    color: #005BE7;
+    text-decoration: none;
+    border-bottom: 1px dotted #005BE7;
+}
+.recommendation-container .recommendation p a:hover,
+.recommendation-card p a:hover,
+.list-link a:hover {
+    color: #005BE7;
+    text-decoration: none;
+    background: none;
+    border: 0;
+}
+.recommendation-text {
+    margin: 0 0 10px 0;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #999;
+    text-transform: uppercase;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.recommendation-container *,
+.recommendation-card * {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+}
+.recommendation-card {
+    width: 50%;
+}
+.recommendation-card.list {
+    padding: 0;
+}
+.recommendation-card.preferred {
+}
+.recommendation-card.preferred h2 {
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #333;
+    text-transform: capitalize;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.recommendation-card.preferred .cta {
+    padding: 10px 20px;
+    margin: 10px 0 5px;
+    display: inline-block;
+    font-weight: bold;
+    background-color: #005BE7;
+    border-radius: 100px;
+    font-size: 1.15em;
+    color: #fff;
+}
+.recommendation-card.preferred .cta svg {
+    margin-right: 5px;
+    vertical-align: middle;
+    height: 20px;
+    stroke: #fff;
+}
+.recommendation-card h2 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+    font-weight: bold;
+    color: #005BE7;
+    text-transform: capitalize;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.recommendation-container ul {
+    padding-left: 50px;
+}
+.recommendation-container li {
+    list-style-type: disc;
+    padding-left: 10px;
+}
+.list-link {
+    list-style-type: disc !important;
+    list-style-position: outside;
+    margin-left: 20px !important;
+    padding-left: 15px !important;
+}
+.list-link svg {
+    height: 14px;
+    stroke: #005BE7;
+    margin-right: 5px;
+}
+/* Accordion Styles */
+.tabs {    
+    overflow: hidden;
+  }
+  .tab {
+    width: 100%;
+    overflow: hidden;
+  }
+  .tab-label {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 15px 25px 5px;
+    border-top: 1px solid #eee;
+    margin: 0;
+    font-weight: bold;
+    cursor: pointer;
+    /* Icon */
+  }
+  .tab-label:hover {
+    color: #005BE7;
+  }
+  .tab-label::after {
+    content: "\276F";
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    -webkit-transition: all .35s;
+    transition: all .35s;
+  }
+  .tab-content {
+    max-height: 0;
+    padding: 0 25px;
+    background:transparent;
+    -webkit-transition: all .35s;
+    transition: all .35s;
+  }
+  .tab-content ul {
+      padding: 0;
+      margin: 0;
+  }
+  .tab-content li {
+      padding: 0;
+      margin: 10px 0 0 0;
+      list-style-type: none;
+  }
+  .tab-content .cta {
+    padding: 10px 20px;
+    margin: 10px 0 0 0;
+    display: inline-block;
+    font-weight: bold;
+    background-color: #005BE7;
+    border-radius: 100px;
+    font-size: .90em;
+    color: #fff;
+}
+.tab-content .cta svg {
+    margin-right: 5px;
+    vertical-align: middle;
+    height: 18px;
+    stroke: #fff;
+    margin-top: -2px;
+}
+  .tab-close {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: end;
+            justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    cursor: pointer;
+  }
+  .tab-close:hover {
+    background: transparent;
+  }
+  .recommendation-card input[type=checkbox] {
+    position: absolute !important;
+    opacity: 0 !important;
+    z-index: -1 !important;
+  }
+  .recommendation-card input[type=checkbox]:checked + .tab-label {
+    background: transparent;
+  }
+  .recommendation-card input[type=checkbox]:checked + .tab-label::after {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  .recommendation-card input[type=checkbox]:checked ~ .tab-content {
+    max-height: 100vh;
+    padding: 0 25px 25px;
+  }
+
 /* Media Queries */
 @media only screen 
   and (min-device-width: 320px) 
@@ -487,11 +797,43 @@ header h1 {
         padding: 0;
         margin: 0;
     }
-    .score-container {
-        margin-top: 20px;
+    .pie-wrapper {
+        margin: 0 auto;
+        float: none;
+    }
+    .outcome-container {
+        flex-flow: wrap;
+        width: 100%;
+        padding: 0;
+    }
+    .outcome,
+    .outcome.off {
+        height: auto;
+        margin: 10px 25px;
+    }
+    #container {
+        padding: 25px !important;
+    }
+    a.back {
+        margin-top: 15px;
+        display: inline-block;
+    }
+    .recommendation-container h2 {
+        font-size: 1.25em;
+    }
+    .recommendation-text {
+        text-align: center;
+    }
+    .recommendation-container {
+        margin: 0 0 25px 0 !important;
+    }
+    .recommendation-card {
+        margin: 25px 0 25px 0 !important;
+        width: 100%;
     }
     footer ul.footer-logos {
         text-align: center;
+        padding: 20px 0 40px 0;
     }
     footer ul.footer-logos li.logo {
         width: 200px;
