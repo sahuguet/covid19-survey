@@ -827,8 +827,15 @@ a.back:hover {
         margin-top: 15px;
         display: inline-block;
     }
+    .cta {
+        width: 100% !important;
+        text-align: center !important;
+    }
     .recommendation-container h2 {
         font-size: 1.25em;
+    }
+    .recommendation-container ul {
+        padding-left: 15px;
     }
     .recommendation-text {
         text-align: center;
