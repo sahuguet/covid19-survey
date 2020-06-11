@@ -78,7 +78,7 @@ var list_of_questions = [
     {
         'id': '6',
         'weight': 10,
-        'type': 'radio',
+        'type': 'checkbox',
         'question': 'Do you require any essential medications or routine treatments?',
         'choices': [
             { 'code': 'OK05', 'label': _t('None required'), 'points': 0 },
