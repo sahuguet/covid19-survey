@@ -1,253 +1,149 @@
-<html>
+<!DOCTYPE html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>Red Hook, Brooklyn | Community Covid Checkup</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <script src="gettext.iife.js"></script>
+    <script src="translations.js"></script>
+    <script src="questions.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 </head>
 
 <body>
 
-    <div class="recommendation">
-        <h1>LOW-RISK: STAY HOME, EDUCATE</h1>
+    <header class="header">
+        <a href="#">
+            <h1>Community Covid Checkup <strong>Red Hook, Brooklyn</strong></h1>
+        </a>
+        <!-- BACK BUTTON -->
+        <a class="back" href="javascript:history.back()"><i data-feather="arrow-left"></i> GO BACK</a>
+    </header>
 
-        <p>
-            Sounds like you are feeling OK. Stay home and take care of yourself. Call your medical provider if you start
-            feeling any one or more of the following symptom(s) that may be related to COVID-19:
-        </p>
+    <article id="container" style="padding: 0 40px;">
+        <div class="recommendation-container">
+            <div class="recommendation">
+                <h2>LOW-RISK: STAY HOME, EDUCATE</h2>
+                <p>
+                    Sounds like you are feeling OK. Stay home and take care of yourself. Call your medical provider if you start
+                    feeling any one or more of the following symptom(s) that may be related to COVID-19:
+                </p>
+                <ul>
+                    <li>Fever, chills, or sweating</li>
+                    <li>Difficulty breathing</li>
+                    <li>New or worsening cough</li>
+                    <li>Sore throat</li>
+                    <li>Aching throughout the body</li>
+                    <li>Respiratory symptoms and vomiting or diarrhea</li>
+                </ul>
+                <p><i data-feather="info"></i>
+                    You can <a href="https://www.cdc.gov/coronavirus/2019-ncov/faq.html" target="_blank">learn more about COVID-19</a>, <a href="https://www.nycservice.org/pages/pages/214" target="_blank">what you can do to help</a>, and <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">get up-to-date information</a>.
+                </p>
+                <p><i data-feather="info"></i>
+                    Follow these steps to <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fif-you-are-sick%2Fcaring-for-yourself-at-home.html" target="_blank">help care for yourself</a>.
+                </p>
+                <p><i data-feather="info"></i>
+                    Follow these steps to <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fif-you-are-sick%2Fcaring-for-yourself-at-home.html" target="_blank">help protect others from getting sick</a>.
+                </p>
+            </div>
+        </div>
+        <!-- Additional Resources -->
+        <h3 class="recommendation-text">If you need a medical provider, here are some resources:</h3>
+        <!-- Preferred Recommendation -->
+        <div class="recommendation-card preferred">
+            <h2>NYC Health + Hospitals Hotline</h2>
+            <p class="description">
+                FREE Hotline is staffed with >700 medical professionals who can write prescriptions and arrange treatment/services for patients. If a treatment/service that is required is not free, staff can help walk you through signing up for a special insurance program (<a href="https://www.nyccare.nyc/" target="_blank">NYC Care</a>) over the phone.
+            </p>
+            <p class="cta"><i data-feather="phone-call"></i> 1-844-692-4692</p>
+        </div>
+        <!-- Recommendation List -->
+        <div class="recommendation-card list">
+            <div class="tabs">
+                <div class="tab">
+                    <input type="checkbox" id="rec1">
+                    <label class="tab-label" for="rec1">
+                        NYU Virtual Urgent Care
+                    </label>
+                    <div class="tab-content">
+                        <ul>
+                            <li>Telemedicine provided by NYU Langone providers</li>
+                            <li><span class="cta"><i data-feather="phone-call"></i> 1-929-455-6409</span></li>
+                            <li><a class="cta" href="https://nyulangone.org/locations/virtual-urgent-care" target="_blank"><i data-feather="external-link"></i> Website</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="checkbox" id="rec2">
+                    <label class="tab-label" for="rec2">
+                        Addabbo Clinic
+                    </label>
+                    <div class="tab-content">
+                        <ul>
+                            <li>120 Richards St.<br/>
+                                Brooklyn, NY 11231</li>
+                            <li>Federally Qualified Health Center with outpatient clinics, on-site pharmacy and on-site lab</li>
+                            <li><span class="cta"><i data-feather="phone-call"></i> 1-718-945-7150</span></li>
+                            <li><a class="cta" href="https://addabbo.org/locations/brooklyn/" target="_blank"><i data-feather="external-link"></i> Website</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab">
+                    <input type="checkbox" id="rec3">
+                    <label class="tab-label" for="rec3">
+                        Other helpful links for your local area
+                    </label>
+                    <div class="tab-content">
+                        <ul>
+                            <li class="list-link"><a href="#" target="_blank">New York City Department of Health and Mental Hygiene</a></li>
+                            <li class="list-link"><a href="#" target="_blank">Red Hook, NY Government Website</a></li>
+                            <li class="list-link"><a href="#" target="_blank">Red Hook, NY HUB Daily Update</a></li>
+                        </ul>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- Additional Info -->
+        <div class="recommendation-card preferred">
+            <p>Additional support can be provided by <strong>Council Member Carlos Menchaca's Office</strong>. For questions in English, Spanish, or Mandarin, call:</p>
+            <p class="cta"><i data-feather="phone-call"></i> 1-718-439-9012</p>
 
+        </div>
+    </article>
 
-        <ul>
-            <li>Fever, chills, or sweating</li>
-
-            <li>Difficulty breathing</li>
-
-            <li>New or worsening cough</li>
-
-            <li>Sore throat</li>
-
-            <li>Aching throughout the body</li>
-
-            <li>Respiratory symptoms and vomiting or diarrhea</li>
+    <footer>
+        <ul class="footer-logos">
+            <li class="logo" style="width: 70px;">
+                <img src="images/menchaca_logo.svg">
+            </li>
+            <li class="logo">
+                <img src="images/Cornell_Tech.svg">
+            </li>
+            <li class="logo" style="width: 90px;">
+                <a href="https://rhicenter.org/" target="_blank"><img src="images/RHI.jpg"></a>
+            </li>
+            <li class="logo">
+                <img src="images/the_grid_logo.png">
+            </li>
+            <li class="logo" style="width: 70px;">
+                <img src="images/CIVLAB.png">
+            </li>
         </ul>
-
-        <p>
-            You can learn more about COVID-19, what you can do to help, and get up-to-date information.
-        </p>
-        <p>
-            Follow these steps to help care for yourself.
-        </p>
-        <p>
-            Follow these steps to help protect others from getting sick.
-        </p>
-
-        If you need a medical provider, here are some resources (mouse over for text):
-
-        <ul>
-
-            <li>NYC Health + Hospitals Hotline: 1-844-692-4692</li>
-
-            o FREE Hotline is staffed with >700 medical professionals who can write prescriptions and arrange
-            treatment/services
-            for patients. If a treatment/service that is required is not free, staff can help walk you through signing
-            up
-            for a
-            special insurance program (NYC Care https://www.nyccare.nyc/) over the phone.
-
-            <li>NYU Virtual Urgent Care: 1-929-455-6409</li>
-
-            o Telemedicine provided by NYU Langone providers
-
-            o Website: https://nyulangone.org/locations/virtual-urgent-care
-
-            <li>Addabbo Clinic: 1-718-945-7150; 120 Richards St Brooklyn, NY 11231</li>
-
-            o Federally Qualified Health Center with outpatient clinics, on-site pharmacy and on-site lab
-
-            o Website: https://addabbo.org/locations/brooklyn/
-
-            Please also see the following helpful links for your local area (mouse over for text):
-
-            <li>New York City Department of Health and Mental Hygiene</li>
-
-            <li>Red Hook, NY Government Website</li>
-
-            <li>Red Hook, NY HUB Daily Update</li>
-
-        </ul>
-
-
-        <p>
-            Additional support can be provided by Council Member Carlos Menchaca's Office. For questions in English,
-            Spanish, or Mandarin, call 1-718-439-9012.
-        </p>
-    </div>
-
-
-    <div class="recommendation">
-        MEDIUM-RISK: TELEMEDICINE, CALL YOUR DOC
-
-
-
-        Stay home and take care of yourself in home isolation. Call a medical provider within 24 hours. They will
-        determine
-        next steps.
-
-        Sorry that you are feeling unwell. You have one or more symptom(s) that may be related to COVID-19. You also
-        have
-        medical conditions that could put you at greater risk for complications from COVID-19. Call your healthcare
-        provider, clinician advice line, or telemedicine provider within 24 hours. Start home isolation. This means stay
-        home except to get medical care, and do not go to work, school, or public areas. Do not use public
-        transportation or
-        ride sharing.
-
-        Follow these steps to help care for yourself.
-
-        Follow these steps to help protect others from getting sick.
-
-        If you begin to have any of these emergency warning signs* for COVID-19 get medical attention immediately:
-
-        Trouble breathing
-        Persistent pain or pressure in the chest
-        New confusion or inability to arouse
-        Bluish lips or face
-        *This list is not all inclusive. Please consult your medical provider for any other symptoms that are severe or
-        concerning to you.
-
-        If you need a medical provider, here are some resources (mouse over for text):
-
-        - NYC Health + Hospitals Hotline: 1-844-692-4692
-
-        o FREE Hotline is staffed with >700 medical professionals who can write prescriptions and arrange
-        treatment/services
-        for patients. If a treatment/service that is required is not free, staff can help walk you through signing up
-        for a
-        special insurance program (NYC Care https://www.nyccare.nyc/) over the phone.
-
-        - NYU Virtual Urgent Care: 1-929-455-6409
-
-        o Telemedicine provided by NYU Langone providers
-
-        o Website: https://nyulangone.org/locations/virtual-urgent-care
-
-        - Addabbo Clinic: 1-718-945-7150; 120 Richards St Brooklyn, NY 11231
-
-        o Federally Qualified Health Center with outpatient clinics, on-site pharmacy and on-site lab
-
-        o Website: https://addabbo.org/locations/brooklyn/
-
-
-
-        EMERGENCY: CALL 911, GO TO ED, CALL DOCTOR
-
-
-
-        Urgent medical attention may be needed. Please contact a doctor, go the Emergency Department, or call 9-1-1.
-
-        Based on your reported symptoms, urgent medical attention may be needed. You should seek medical attention
-        immediately.
-
-        If you are able to go to the Emergency Department on your own: Tell the emergency staff if you have had contact
-        with
-        someone with similar symptoms or confirmed COVID-19. Here are some local Emergency Departments (mouse over for
-        text).
-
-        - NYU Langone at Cobble Hill ER: 83 Amity Street, Brooklyn, NY 11201
-
-        o Undocumented/uninsured accepted
-
-        - NY Presbyterian Brooklyn Methodist Hospital ER: 506 6th Street, Brooklyn, NY 11215
-
-        o For their hotline call: 1-646-697-9000
-
-        Here is what to expect at the hospital (mouse over for text).
-
-        - You might be screened even before going inside:
-
-        o If you have respiratory symptoms, you’ll be taken to a separate area where you’ll see a doctor and your vitals
-        will be taken—many hospitals have set this area up in tents so that suspected COVID-19 patients don’t have to
-        enter
-        the facility unless they have significant difficulty breathing or abnormal vital signs.
-
-        - Expect to wear a mask:
-
-        o Hospitals have begun treating every patient as a potential COVID-19 patient, therefore, most facilities will
-        put
-        you in a mask on arrival regardless the nature of your health emergency.
-
-        - If you are medically stable, you may be discharged and receive instructions for caring for yourself at home.
-
-        - If you are admitted to the emergency department, you won’t be permitted visitors.
-
-        o Hospitals have instituted this policy to reduce the risk of infection.
-
-        o There are some exceptions: Children may have a parent or guardian with them, as can patients with dementia or
-        other communication problems.
-
-        o Enforcement depends on the specific facility and may be on a case-by-case basis. To help mitigate the lack of
-        in-person contact, many hospitals are using technological tools to allow patients to reach family and friends.
-
-        If you call 9-1-1: Tell the operator:
-
-        · What symptoms you are experiencing (e.g. fever, cough, shortness of breath)
-
-        · If you have been in contact with someone with similar symptoms or confirmed COVID-19.
-
-    </div>
-
-    <div class="recommendation">
-
-        <h1>MENTAL HEALTH + SOCIAL WORK</h1>
-
-        <p>Based on your responses, you may currently be experiencing stress/anxiety.</p>
-
-        <p>Please take care of yourself and those around you. In this time of uncertainty, it is normal to feel scared,
-            sad, and confused. Follow these steps to support yourself. If you are experiencing anxiety, depression, or
-            just need
-            some mental health support (mouse over for text):
-
-            <li>Call 1-888-NYC-WELL or text WELL to 6517</li>
-
-            <li>NYC Mental Health/Counseling Support Hotline: 1-844-863-9314<br>
-                To schedule a FREE appointment with a mental health professional</li>
-
-            <li>OMH Emotional Support Line: 1-844-863-9314</li>
-
-            o Provides free and confidential support for those experiencing increased anxiety
-
-            <li>The National Domestic Violence Hotline: 1-800-799-7233</li>
-
-            <li>Red Hook CARES: 1-646-573-4665 (Monday-Friday 9am-5pm) or email DSCALLET@NYCOURTS.GOV</li>
-
-            o Crisis counseling services offered for those experiencing emotional or physical abuse
-
-            <li>SAMHSA’s Disaster Distress Helpline: 1-800-985-5990 or text TalkWithUs to 66746</li>
-
-            o Provides immediate counseling to anyone who is seeking help in coping with mental and emotional distress
-        </p>
-
-
-        <p>
-            Those with preexisting mental health conditions should continue with their treatment and be aware of new or
-            worsening symptoms.</p>
-
-
-
-        <p>If you are feeling overwhelmed with emotions like sadness, depression, or anxiety, or feel like you may want
-            to harm yourself or others call 9-1-1.</p>
-
-
-        <p>Please also see the following helpful links for your local area:
-        <ul>
-            <li>New York City Department of Health and Mental Hygiene</li>
-
-            <li>Red Hook, NY Government Website</li>
-
-            <li>Red Hook, NY HUB Daily Update</li>
-        </ul>
-        </p>
-
-        <p>Additional support can be provided by Council Member Carlos Menchaca's Office. For questions in English,
-            Spanish, or Mandarin, call 1-718-439-9012.</p>
-    </div>
-
+    </footer>
+    <script>
+        feather.replace()
+    </script>
 
 </body>
 
